@@ -30,6 +30,18 @@ class Test_case(object):
 		self.connection = test_dict[self.name]['connection']
 		self.nmag = test_dict[self.name]['nmag']
 
+	def start(self):
+		self.mount_partition_as_rw()
+		if self.first_time_running():
+			self.make_backups()
+			self.disable_nmag()
+			self.add_testcase_to_appdef()
+			self.enable_wifi_auto()
+			self.reboot()
+		else:
+			return
+
+
 	def init_mqtt(self):
 		self.mqtt = mqtt.Client()
 		self.mqtt.on_connect = self.on_connect
@@ -107,6 +119,8 @@ class Test_case(object):
 		logging.debug("Checking are we running for first time")
 		if os.path.exists("/home/pi/conf_backups"):
 			return False
+		else:
+			return True
 
 	def enable_wifi_auto(self):
 		logging.debug("Setting wifi auto mode")
