@@ -79,11 +79,13 @@ class Test_case(object):
 		return output.decode(encoding="utf-8", errors="ignore").rstrip()
 
 	def mount_partition_as_rw(self):
+		print ("Mounting partition as rw")
 		self.run_shell_process("sudo mount -o remount rw /")
 		logging.debug("Partition is mount as rw")
 		return
 
 	def make_backups(self):
+		print ("Making backups")
 		self.run_shell_process("sudo mkdir %s" % (self.backup_dir))
 		self.run_shell_process("sudo cp %s %s."  % (self.net_config, self.backup_dir))
 		self.run_shell_process("sudo cp %s %s."  % (self.appdef, self.backup_dir))
@@ -92,6 +94,7 @@ class Test_case(object):
 
 	def disable_nmag(self):
 		logging.debug("Disabling nmag")
+		print ("Disabling nmag")
 		with open(appdef) as f:
 			for line in f.readlines():
 				if "#nmag" in line:
@@ -101,6 +104,7 @@ class Test_case(object):
 			return
 
 	def add_testcase_to_appdef(self):
+		print ("Appending our script to appdef")
 		logging.debug("Appending our script to appdef")
 		with open(self.appdef, 'a') as f:
 			f.write(self.appdef_test_line)
@@ -112,10 +116,12 @@ class Test_case(object):
 		return self.run_shell_process(cmd)
 
 	def reboot(self):
+		print ("Going for a reboot")
 		logging.debug("Going down for a reboot")
 		self.run_shell_process("sudo reboot")
 
 	def first_time_running(self):
+		print("First time running")
 		logging.debug("Checking are we running for first time")
 		if os.path.exists(self.backup_dir):
 			return False
