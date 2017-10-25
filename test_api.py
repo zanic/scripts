@@ -79,14 +79,14 @@ class Test_case(object):
 		return output.decode(encoding="utf-8", errors="ignore").rstrip()
 
 	def mount_partition_as_rw(self):
-		run_shell_process("sudo mount -o remount rw /")
+		self.run_shell_process("sudo mount -o remount rw /")
 		logging.debug("Partition is mount as rw")
 		return
 
 	def make_backups(self):
-		run_shell_process("sudo mkdir %s" % (backup_dir))
-		run_shell_process("sudo cp %s %s."  % (net_config, backup_dir))
-		run_shell_process("sudo cp %s %s."  % (appdef, backup_dir))
+		self.run_shell_process("sudo mkdir %s" % (backup_dir))
+		self.run_shell_process("sudo cp %s %s."  % (net_config, backup_dir))
+		self.run_shell_process("sudo cp %s %s."  % (appdef, backup_dir))
 		logging.debug("Backups were made")
 		return
 
@@ -109,11 +109,11 @@ class Test_case(object):
 	def check_reset_counter(self):
 		logging.debug("Checking check_reset_counter")
 		cmd = "sudo uboot_env -n reset_counter | grep -oE '[[:digit::]]'"
-		return run_shell_process(cmd)
+		return self.run_shell_process(cmd)
 
 	def reboot(self):
 		logging.debug("Going down for a reboot")
-		run_shell_process("sudo reboot")
+		self.run_shell_process("sudo reboot")
 
 	def first_time_running(self):
 		logging.debug("Checking are we running for first time")
