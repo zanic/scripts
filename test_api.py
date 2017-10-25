@@ -57,8 +57,8 @@ class Test_case(object):
 			for line in f.readlines():
 				if "#nmag" in line:
 					return
-		for line in fileinput.input(appdef, inplace=True)
-		if "#nmag" in line:
+		for line in fileinput.input(appdef, inplace=True):
+			print (line.rstrip().replace('nmag:', '#nmag'))
 			return
 
 	def add_testcase_to appdef(self):
