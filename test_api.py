@@ -18,18 +18,17 @@ class Test_case(object):
 	mbmb_reset_pin  =13
 	mbmb_hard_power_pin = 15
 
+	GPIO.setwarnings(False)
+	GPIO.setmode(GPIO.BOARD)
+	GPIO.setup(mbmb_reset_pin, GPIO.OUT)
+	GPIO.setup(mbmb_power_pin, GPIO.OUT)
+	GPIO.setup(mbmb_hard_power_pin, GPIO.OUT)
 
 	def __init__(self, name):
 		self.name = name
 		self.dut = test_dict[self.name]['dut']
 		self.connection = test_dict[self.name]['connection']
 		self.nmag = test_dict[self.name]['nmag']
-
-		GPIO.setwarnings(False)
-		GPIO.setmode(GPIO.BOARD)
-		GPIO.setup(self.mbmb_reset_pin, GPIO.OUT)
-		GPIO.setup(self.mbmb_power_pin, GPIO.OUT)
-		GPIO.setup(self.mbmb_hard_power_pin, GPIO.OUT)
 
 	def init_mqtt(self):
 		self.mqtt = mqtt.Client()
@@ -118,30 +117,30 @@ class Test_case(object):
 		logging.debug("Test over, cleaning up")
 
 	def modem_power_off(self):
-		GPIO.output(mbmb_power_pin, False)
+		GPIO.output(self.mbmb_power_pin, False)
 		time.sleep(1)
-		GPIO.output(mbmb_power_pin, True)
+		GPIO.output(self.mbmb_power_pin, True)
 		time.sleep(2)
-		GPIO.output(mbmb_power_pin, False)
+		GPIO.output(self.mbmb_power_pin, False)
 		time.sleep(1)
-		GPIO.output(mbmb_hard_power_pin, False)
+		GPIO.output(self.mbmb_hard_power_pin, False)
 		return
 	
 	def modem_power_on(self):
-		GPIO.output(mbmb_hard_power_pin, True)
+		GPIO.output(self.mbmb_hard_power_pin, True)
 		time.sleep(1)
-		GPIO.output(mbmb_power_pin, True)
+		GPIO.output(self.mbmb_power_pin, True)
 		time.sleep(1)
-		GPIO.output(mbmb_power_pin, False)
+		GPIO.output(self.mbmb_power_pin, False)
 		time.sleep(0.18)
-		GPIO.output(mbmb_power_pin, True)
+		GPIO.output(self.mbmb_power_pin, True)
 		return
 	def modem_reset(self):
-		GPIO.output(mbmb_reset_pin, True)
+		GPIO.output(self.mbmb_reset_pin, True)
 		time.sleep(1)
-		GPIO.output(mbmb_reset_pin, False)
+		GPIO.output(self.mbmb_reset_pin, False)
 		time.sleep(0.1)
-		GPIO.output(mbmb_reset_pin, True)
+		GPIO.output(self.mbmb_reset_pin, True)
 		return		
 	
 	
