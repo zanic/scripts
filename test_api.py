@@ -116,7 +116,7 @@ class Test_case(object):
 	def do_cleanup(self):
 		logging.debug("Test over, cleaning up")
 
-	def modem_power_off():
+	def modem_power_off(self):
 		GPIO.output(mbmb_power_pin, False)
 		time.sleep(1)
 		GPIO.output(mbmb_power_pin, True)
@@ -126,7 +126,7 @@ class Test_case(object):
 		GPIO.output(mbmb_hard_power_pin, False)
 		return
 	
-	def modem_power_on():
+	def modem_power_on(self):
 		GPIO.output(mbmb_hard_power_pin, True)
 		time.sleep(1)
 		GPIO.output(mbmb_power_pin, True)
@@ -135,7 +135,7 @@ class Test_case(object):
 		time.sleep(0.18)
 		GPIO.output(mbmb_power_pin, True)
 		return
-	def modem_reset():
+	def modem_reset(self):
 		GPIO.output(mbmb_reset_pin, True)
 		time.sleep(1)
 		GPIO.output(mbmb_reset_pin, False)
