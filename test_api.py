@@ -15,7 +15,7 @@ class Test_case(object):
 	mqtt_broker = "localhost"
 	mqtt_broker_port = 1883
 
-	def __init__(self, name, dut, connection):
+	def __init__(self, name):
 		self.name = name
 		self.dut = test_dict[self.name]['dut']
 		self.connection = test_dict[self.name]['connection']
