@@ -130,7 +130,7 @@ class Test_case(object):
 
 	def enable_wifi_auto(self):
 		logging.debug("Setting wifi auto mode")
-		with open(self.net_faces, 'a') as f:
+		with open(self.net_config, 'a') as f:
 			f.write("auto wlan0")
 
 	def do_cleanup(self):
