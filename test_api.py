@@ -121,11 +121,11 @@ class Test_case(object):
 		self.run_shell_process("sudo reboot")
 
 	def first_time_running(self):
-		print("First time running")
 		logging.debug("Checking are we running for first time")
 		if os.path.exists(self.backup_dir):
 			return False
 		else:
+			print("First time running")
 			return True
 
 	def enable_wifi_auto(self):
