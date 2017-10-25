@@ -78,7 +78,7 @@ class Test_case(object):
 			return str(err)
 		return output.decode(encoding="utf-8", errors="ignore").rstrip()
 
-	def mount_partition_as_rw(self, cmd):
+	def mount_partition_as_rw(self):
 		run_shell_process("sudo mount -o remount rw /")
 		logging.debug("Partition is mount as rw")
 		return
