@@ -95,7 +95,7 @@ class Test_case(object):
 	def disable_nmag(self):
 		logging.debug("Disabling nmag")
 		print ("Disabling nmag")
-		with open(appdef) as f:
+		with open(self.appdef) as f:
 			for line in f.readlines():
 				if "#nmag" in line:
 					return
