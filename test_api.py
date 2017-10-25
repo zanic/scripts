@@ -61,7 +61,7 @@ class Test_case(object):
 			print (line.rstrip().replace('nmag:', '#nmag'))
 			return
 
-	def add_testcase_to appdef(self):
+	def add_testcase_to_appdef(self):
 		logging.debug("Appending our script to appdef")
 		with open(appdef, 'a') as f:
 			f.write(appdef_test_line)
