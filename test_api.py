@@ -46,8 +46,8 @@ class Test_case(object):
 
 	def make_backups(self):
 		run_shell_process("sudo mkdir %s" % (backup_dir))
-		run_shell_process("sudo cp %s %s."  % (net_config, backup_dir)
-		run_shell_process("sudo cp %s %s."  % (appdef, backup_dir)))
+		run_shell_process("sudo cp %s %s."  % (net_config, backup_dir))
+		run_shell_process("sudo cp %s %s."  % (appdef, backup_dir))
 		logging.debug("Backups were made")
 		return
 
