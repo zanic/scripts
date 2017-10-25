@@ -14,6 +14,15 @@ class Test_case(object):
 	backup_dir = "/home/pi/backup_dir/"
 	mqtt_broker = "localhost"
 	mqtt_broker_port = 1883
+	mbmb_power_pin = 11
+	mbmb_reset_pin  =13
+	mbmb_hard_power_pin = 15
+
+	GPIO.setwarnings(False)
+	GPIO.setmode(GPIO.BOARD)
+	GPIO.setup(mbmb_reset_pin, GPIO.OUT)
+	GPIO.setup(mbmb_power_pin, GPIO.OUT)
+	GPIO.setup(mbmb_hard_power_pin, GPIO.OUT)
 
 	def __init__(self, name):
 		self.name = name
@@ -105,4 +114,33 @@ class Test_case(object):
 			f.write("auto wlan0")
 
 	def do_cleanup(self):
-		logging.debug()
+		logging.debug("Test over, cleaning up")
+
+	def modem_power_off():
+		GPIO.output(mbmb_power_pin, False)
+		time.sleep(1)
+		GPIO.output(mbmb_power_pin, True)
+		time.sleep(2)
+		GPIO.output(mbmb_power_pin, False)
+		time.sleep(1)
+		GPIO.output(mbmb_hard_power_pin, False)
+		return
+	
+	def modem_power_on():
+		GPIO.output(mbmb_hard_power_pin, True)
+		time.sleep(1)
+		GPIO.output(mbmb_power_pin, True)
+		time.sleep(1)
+		GPIO.output(mbmb_power_pin, False)
+		time.sleep(0.18)
+		GPIO.output(mbmb_power_pin, True)
+		return
+	def modem_reset():
+		GPIO.output(mbmb_reset_pin, True)
+		time.sleep(1)
+		GPIO.output(mbmb_reset_pin, False)
+		time.sleep(0.1)
+		GPIO.output(mbmb_reset_pin, True)
+		return		
+	
+	
