@@ -102,7 +102,7 @@ class Test_case(object):
 
 	def add_testcase_to_appdef(self):
 		logging.debug("Appending our script to appdef")
-		with open(appdef, 'a') as f:
+		with open(self.appdef, 'a') as f:
 			f.write(self.appdef_test_line)
 		logging.debug("Testcase added to appdef, will be started on next boot")
 
