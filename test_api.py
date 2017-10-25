@@ -22,11 +22,11 @@ class Test_case(object):
 		self.nmag = test_dict[self.name]['nmag']
 
 	def init_mqtt(self):
-		self.mqtt = mqtt.Client()
+		self.mqtt = mqtt.Client(self)
 		self.mqtt.on_connect = self.on_connect
 		self.mqtt.on_message = self.on_message
 		self.mqtt.on_publish = self.on_publish
-		self.mqtt.connect(self, self.mqtt_broker, port=self.mqtt_broker_port, keepalive=60)
+		self.mqtt.connect(self.mqtt_broker, port=self.mqtt_broker_port, keepalive=60)
 		self.mqtt.loop_start()
 
 	def on_connect(self, client, userdata, rc):
