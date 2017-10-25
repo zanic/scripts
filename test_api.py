@@ -18,17 +18,18 @@ class Test_case(object):
 	mbmb_reset_pin  =13
 	mbmb_hard_power_pin = 15
 
-	GPIO.setwarnings(False)
-	GPIO.setmode(GPIO.BOARD)
-	GPIO.setup(mbmb_reset_pin, GPIO.OUT)
-	GPIO.setup(mbmb_power_pin, GPIO.OUT)
-	GPIO.setup(mbmb_hard_power_pin, GPIO.OUT)
 
 	def __init__(self, name):
 		self.name = name
 		self.dut = test_dict[self.name]['dut']
 		self.connection = test_dict[self.name]['connection']
 		self.nmag = test_dict[self.name]['nmag']
+
+		GPIO.setwarnings(False)
+		GPIO.setmode(GPIO.BOARD)
+		GPIO.setup(self.mbmb_reset_pin, GPIO.OUT)
+		GPIO.setup(self.mbmb_power_pin, GPIO.OUT)
+		GPIO.setup(self.mbmb_hard_power_pin, GPIO.OUT)
 
 	def init_mqtt(self):
 		self.mqtt = mqtt.Client()
