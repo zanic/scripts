@@ -26,7 +26,7 @@ class Test_case(object):
 		self.mqtt.on_connect = self.on_connect
 		self.mqtt.on_message = self.on_message
 		self.mqtt.on_publish = self.on_publish
-		self.mqtt.connect(mqtt_broker, port=mqtt_broker_port, keepalive=60)
+		self.mqtt.connect(self.mqtt_broker, port=self.mqtt_broker_port, keepalive=60)
 		self.mqtt.loop_start()
 
 	def on_connect(client, userdata, rc):
@@ -41,7 +41,7 @@ class Test_case(object):
 	def mqtt_subscribe(client):
 	    client.subscribe("smartcity/data/0/GPS/+")    
 	    return
-	    
+
 	def run_shell_process(self, cmd):
 		try:
 			output = subprocess.check_output(
