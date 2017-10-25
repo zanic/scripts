@@ -29,16 +29,16 @@ class Test_case(object):
 		self.mqtt.connect(self.mqtt_broker, port=self.mqtt_broker_port, keepalive=60)
 		self.mqtt.loop_start()
 
-	def on_connect(client, userdata, rc):
+	def on_connect(self, client, userdata, rc):
 	    mqtt_subscribe(client)
 	
-	def on_message(client, userdata, msg):
+	def on_message(self, client, userdata, msg):
 	    process_mqtt_message(msg)
 	
-	def on_publish(client, userdata, mid):
+	def on_publish(self, client, userdata, mid):
 	    return
 	
-	def mqtt_subscribe(client):
+	def mqtt_subscribe(self, client):
 	    client.subscribe("smartcity/data/0/GPS/+")    
 	    return
 
