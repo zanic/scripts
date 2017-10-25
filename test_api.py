@@ -22,18 +22,18 @@ class Test_case(object):
 		self.nmag = test_dict[self.name]['nmag']
 
 	def init_mqtt(self):
-		self.mqtt = mqtt.Client(self)
+		self.mqtt = mqtt.Client()
 		self.mqtt.on_connect = self.on_connect
 		self.mqtt.on_message = self.on_message
 		self.mqtt.on_publish = self.on_publish
 		self.mqtt.connect(self.mqtt_broker, port=self.mqtt_broker_port, keepalive=60)
 		self.mqtt.loop_start()
 
-	def on_connect(self, client, userdata, rc):
-	    mqtt_subscribe(client)
+	def on_connect(self, client, userdata, flags, rc):
+	    self.mqtt_subscribe(client)
 	
 	def on_message(self, client, userdata, msg):
-	    process_mqtt_message(msg)
+	    self.process_mqtt_message(msg)
 	
 	def on_publish(self, client, userdata, mid):
 	    return
@@ -43,7 +43,8 @@ class Test_case(object):
 	    return
 
 	def process_mqtt_message(self, msg):
-		print(str[msg])
+		msg = msg.payload.decode('utf-8').split(',')
+		print(str(msg))
 
 
 	def run_shell_process(self, cmd):
