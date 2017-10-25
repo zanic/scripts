@@ -42,6 +42,10 @@ class Test_case(object):
 	    client.subscribe("smartcity/data/0/GPS/+")    
 	    return
 
+	def process_mqtt_message(self, msg):
+		print(str[msg])
+
+
 	def run_shell_process(self, cmd):
 		try:
 			output = subprocess.check_output(
