@@ -84,9 +84,9 @@ class Test_case(object):
 		return
 
 	def make_backups(self):
-		self.run_shell_process("sudo mkdir %s" % (backup_dir))
-		self.run_shell_process("sudo cp %s %s."  % (net_config, backup_dir))
-		self.run_shell_process("sudo cp %s %s."  % (appdef, backup_dir))
+		self.run_shell_process("sudo mkdir %s" % (self.backup_dir))
+		self.run_shell_process("sudo cp %s %s."  % (self.net_config, self.backup_dir))
+		self.run_shell_process("sudo cp %s %s."  % (self.appdef, self.backup_dir))
 		logging.debug("Backups were made")
 		return
 
@@ -103,7 +103,7 @@ class Test_case(object):
 	def add_testcase_to_appdef(self):
 		logging.debug("Appending our script to appdef")
 		with open(appdef, 'a') as f:
-			f.write(appdef_test_line)
+			f.write(self.appdef_test_line)
 		logging.debug("Testcase added to appdef, will be started on next boot")
 
 	def check_reset_counter(self):
@@ -117,14 +117,14 @@ class Test_case(object):
 
 	def first_time_running(self):
 		logging.debug("Checking are we running for first time")
-		if os.path.exists("/home/pi/conf_backups"):
+		if os.path.exists(self.backup_dir):
 			return False
 		else:
 			return True
 
 	def enable_wifi_auto(self):
 		logging.debug("Setting wifi auto mode")
-		with open(net_faces, 'a') as f:
+		with open(self.net_faces, 'a') as f:
 			f.write("auto wlan0")
 
 	def do_cleanup(self):
