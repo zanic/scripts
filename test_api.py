@@ -71,7 +71,6 @@ class Test_case(object):
 
 	def start(self):
 		self.mount_partition_as_rw()
-		self.init_modem()
 		if self.first_time_running():
 			self.make_backups()
 			self.add_testcase_to_appdef()
