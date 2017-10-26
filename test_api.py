@@ -21,10 +21,20 @@ class Modem(object):
 		super().__init__()
 
 	def init_modem(self):
-		self.modem_power_on()
-		self.modem_reset()
+		if self.check_modem_exists():
+			self.power_off()
+			time.sleep(3)
+			self.power_on()
+			self.reset()
+			return
+		else:
+			self.power_on()
+			self.reset()
+			time.sleep(5)
+			self.init_modem()
 
-	def modem_power_off(self):
+
+	def power_off(self):
 		GPIO.output(self.mbmb_power_pin, False)
 		time.sleep(1)
 		GPIO.output(self.mbmb_power_pin, True)
@@ -34,7 +44,7 @@ class Modem(object):
 		GPIO.output(self.mbmb_hard_power_pin, False)
 		return
 	
-	def modem_power_on(self):
+	def power_on(self):
 		GPIO.output(self.mbmb_hard_power_pin, True)
 		time.sleep(1)
 		GPIO.output(self.mbmb_power_pin, True)
@@ -43,13 +53,19 @@ class Modem(object):
 		time.sleep(0.18)
 		GPIO.output(self.mbmb_power_pin, True)
 		return
-	def modem_reset(self):
+
+	def reset(self):
 		GPIO.output(self.mbmb_reset_pin, True)
 		time.sleep(1)
 		GPIO.output(self.mbmb_reset_pin, False)
 		time.sleep(0.1)
 		GPIO.output(self.mbmb_reset_pin, True)
-		return		
+		return
+
+	def check_modem_exists(self):
+		return os.path.exists("/dev/gsmmodem")
+
+
 
 class Test_case(object):
 
@@ -175,6 +191,12 @@ class Test_case(object):
 		logging.debug("Setting wifi auto mode")
 		with open(self.net_config, 'a') as f:
 			f.write("auto wlan0")
+
+	def check_modem_exists(self):
+		return os.path.exists("/dev/gsmmodem")
+
+	def reboot_modem():
+
 
 	def do_cleanup(self):
 		logging.debug("Test over, cleaning up")
