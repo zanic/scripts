@@ -33,7 +33,7 @@ class Test_case(object):
 		self.dut = test_dict[self.name]['dut']
 		self.connection = test_dict[self.name]['connection']
 		self.nmag = test_dict[self.name]['nmag']
-		self.reboot = test_dict[self.name]['reboot']
+		self.include_reboot = test_dict[self.name]['reboot']
 
 	def start(self):
 		self.mount_partition_as_rw()
