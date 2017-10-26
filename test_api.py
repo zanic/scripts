@@ -25,7 +25,7 @@ class Test_case(object):
 	GPIO.setup(mbmb_hard_power_pin, GPIO.OUT)
 
 	def __init__(self, name):
-		super().__init__(name)
+		super().__init__()
 		self.name = name
 		self.dut = test_dict[self.name]['dut']
 		self.connection = test_dict[self.name]['connection']
