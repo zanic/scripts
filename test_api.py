@@ -141,7 +141,7 @@ class Test_case(object):
 			f.write("auto wlan0")
 
 	def restart_modem(self):
-		Modem().restart(self)
+		Modem().restart()
 
 	def do_cleanup(self):
 		logging.debug("Test over, cleaning up")
@@ -159,7 +159,7 @@ class Modem(Test_case):
 
 	def __init__(self):
 		pass
-		
+
 	def restart(self):
 		if self.check_modem_exists():
 			logging.debug("/dev/gsmmodem exists")
