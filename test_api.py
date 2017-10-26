@@ -158,8 +158,8 @@ class Modem(Test_case):
 	GPIO.setup(mbmb_hard_power_pin, GPIO.OUT)
 
 	def __init__(self):
-		super.__init__()
-
+		pass
+		
 	def restart(self):
 		if self.check_modem_exists():
 			logging.debug("/dev/gsmmodem exists")
