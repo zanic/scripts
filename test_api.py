@@ -38,7 +38,6 @@ class Test_case(object):
 			self.init_mqtt()
 			return
 
-
 	def init_mqtt(self):
 		self.mqtt = mqtt.Client()
 		self.mqtt.on_connect = self.on_connect
@@ -64,7 +63,6 @@ class Test_case(object):
 	def process_mqtt_message(self, msg):
 		msg = msg.payload.decode('utf-8').split(',')
 		print(str(msg))
-
 
 	def run_shell_process(self, cmd):
 		try:
@@ -133,11 +131,10 @@ class Test_case(object):
 			f.write("auto wlan0")
 
 	def restart_modem(self):
-		Modem.reset()
+		Modem.reset(self)
 
 	def do_cleanup(self):
 		logging.debug("Test over, cleaning up")
-
 
 class Modem(Test_case):
 	mbmb_power_pin = 11
