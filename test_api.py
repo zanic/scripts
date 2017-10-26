@@ -6,66 +6,6 @@ import RPi.GPIO as GPIO
 import paho.mqtt.client as mqtt
 from dict_base import test_dict
 
-class Modem(Test_case):
-	mbmb_power_pin = 11
-	mbmb_reset_pin  =13
-	mbmb_hard_power_pin = 15
-
-	GPIO.setwarnings(False)
-	GPIO.setmode(GPIO.BOARD)
-	GPIO.setup(mbmb_reset_pin, GPIO.OUT)
-	GPIO.setup(mbmb_power_pin, GPIO.OUT)
-	GPIO.setup(mbmb_hard_power_pin, GPIO.OUT)
-
-	def __init__(self):
-		Test_case.__init__()
-
-	def reset(self):
-		if self.check_modem_exists():
-			self.power_off()
-			time.sleep(3)
-			self.power_on()
-			self.reset()
-			return
-		else:
-			self.power_on()
-			self.reset()
-			time.sleep(5)
-			self.init_modem()
-
-
-	def power_off(self):
-		GPIO.output(self.mbmb_power_pin, False)
-		time.sleep(1)
-		GPIO.output(self.mbmb_power_pin, True)
-		time.sleep(2)
-		GPIO.output(self.mbmb_power_pin, False)
-		time.sleep(1)
-		GPIO.output(self.mbmb_hard_power_pin, False)
-		return
-	
-	def power_on(self):
-		GPIO.output(self.mbmb_hard_power_pin, True)
-		time.sleep(1)
-		GPIO.output(self.mbmb_power_pin, True)
-		time.sleep(1)
-		GPIO.output(self.mbmb_power_pin, False)
-		time.sleep(0.18)
-		GPIO.output(self.mbmb_power_pin, True)
-		return
-
-	def reset(self):
-		GPIO.output(self.mbmb_reset_pin, True)
-		time.sleep(1)
-		GPIO.output(self.mbmb_reset_pin, False)
-		time.sleep(0.1)
-		GPIO.output(self.mbmb_reset_pin, True)
-		return
-
-	def check_modem_exists(self):
-		return os.path.exists("/dev/gsmmodem")
-
-
 
 class Test_case(object):
 
@@ -197,3 +137,64 @@ class Test_case(object):
 
 	def do_cleanup(self):
 		logging.debug("Test over, cleaning up")
+
+
+class Modem(Test_case):
+	mbmb_power_pin = 11
+	mbmb_reset_pin  =13
+	mbmb_hard_power_pin = 15
+
+	GPIO.setwarnings(False)
+	GPIO.setmode(GPIO.BOARD)
+	GPIO.setup(mbmb_reset_pin, GPIO.OUT)
+	GPIO.setup(mbmb_power_pin, GPIO.OUT)
+	GPIO.setup(mbmb_hard_power_pin, GPIO.OUT)
+
+	def __init__(self):
+		Test_case.__init__()
+
+	def reset(self):
+		if self.check_modem_exists():
+			self.power_off()
+			time.sleep(3)
+			self.power_on()
+			self.reset()
+			return
+		else:
+			self.power_on()
+			self.reset()
+			time.sleep(5)
+			self.init_modem()
+
+
+	def power_off(self):
+		GPIO.output(self.mbmb_power_pin, False)
+		time.sleep(1)
+		GPIO.output(self.mbmb_power_pin, True)
+		time.sleep(2)
+		GPIO.output(self.mbmb_power_pin, False)
+		time.sleep(1)
+		GPIO.output(self.mbmb_hard_power_pin, False)
+		return
+	
+	def power_on(self):
+		GPIO.output(self.mbmb_hard_power_pin, True)
+		time.sleep(1)
+		GPIO.output(self.mbmb_power_pin, True)
+		time.sleep(1)
+		GPIO.output(self.mbmb_power_pin, False)
+		time.sleep(0.18)
+		GPIO.output(self.mbmb_power_pin, True)
+		return
+
+	def reset(self):
+		GPIO.output(self.mbmb_reset_pin, True)
+		time.sleep(1)
+		GPIO.output(self.mbmb_reset_pin, False)
+		time.sleep(0.1)
+		GPIO.output(self.mbmb_reset_pin, True)
+		return
+
+	def check_modem_exists(self):
+		return os.path.exists("/dev/gsmmodem")
+
