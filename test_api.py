@@ -161,7 +161,7 @@ class Modem(Test_case):
 		Test_case.__init__()
 
 	def restart(self):
-		if self.check_modem_exists():
+		if self.check_modem_exists(self):
 			logging.debug("/dev/gsmmodem exists")
 			self.power_off()
 			time.sleep(3)
