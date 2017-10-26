@@ -172,7 +172,7 @@ class Modem(Test_case):
 			logging.debug("/dev/gsmmodem does not exist, try getting it back")
 			self.power_on()
 			self.reset()
-			time.sleep(5)
+			time.sleep(20)
 			self.restart()
 
 
