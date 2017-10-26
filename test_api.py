@@ -133,7 +133,7 @@ class Test_case(object):
 			f.write("auto wlan0")
 
 	def restart_modem(self):
-		Modem.reset()
+		self.Modem.reset()
 
 	def do_cleanup(self):
 		logging.debug("Test over, cleaning up")
