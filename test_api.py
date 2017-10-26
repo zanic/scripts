@@ -173,7 +173,7 @@ class Modem(Test_case):
 			self.power_on()
 			self.reset()
 			time.sleep(5)
-			self.init_modem()
+			self.restart()
 
 
 	def power_off(self):
