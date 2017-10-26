@@ -19,6 +19,33 @@ class Modem(object):
 
 	def __init__(self):
 		super().__init__()
+		
+	def modem_power_off(self):
+		GPIO.output(self.mbmb_power_pin, False)
+		time.sleep(1)
+		GPIO.output(self.mbmb_power_pin, True)
+		time.sleep(2)
+		GPIO.output(self.mbmb_power_pin, False)
+		time.sleep(1)
+		GPIO.output(self.mbmb_hard_power_pin, False)
+		return
+	
+	def modem_power_on(self):
+		GPIO.output(self.mbmb_hard_power_pin, True)
+		time.sleep(1)
+		GPIO.output(self.mbmb_power_pin, True)
+		time.sleep(1)
+		GPIO.output(self.mbmb_power_pin, False)
+		time.sleep(0.18)
+		GPIO.output(self.mbmb_power_pin, True)
+		return
+	def modem_reset(self):
+		GPIO.output(self.mbmb_reset_pin, True)
+		time.sleep(1)
+		GPIO.output(self.mbmb_reset_pin, False)
+		time.sleep(0.1)
+		GPIO.output(self.mbmb_reset_pin, True)
+		return		
 
 class Test_case(object):
 
@@ -178,5 +205,3 @@ class Test_case(object):
 		time.sleep(0.1)
 		GPIO.output(self.mbmb_reset_pin, True)
 		return		
-	
-	
