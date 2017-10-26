@@ -16,6 +16,16 @@ class Test_case(object):
 	mqtt_broker = "localhost"
 	mqtt_broker_port = 1883
 
+	mbmb_power_pin = 11
+	mbmb_reset_pin  =13
+	mbmb_hard_power_pin = 15
+
+	GPIO.setwarnings(False)
+	GPIO.setmode(GPIO.BOARD)
+	GPIO.setup(mbmb_reset_pin, GPIO.OUT)
+	GPIO.setup(mbmb_power_pin, GPIO.OUT)
+	GPIO.setup(mbmb_hard_power_pin, GPIO.OUT)
+
 
 	def __init__(self, name):
 		super().__init__()
@@ -137,15 +147,15 @@ class Test_case(object):
 		logging.debug("Test over, cleaning up")
 
 class Modem(Test_case):
-	self.mbmb_power_pin = 11
-	self.mbmb_reset_pin  =13
-	self.mbmb_hard_power_pin = 15
+	mbmb_power_pin = 11
+	mbmb_reset_pin  =13
+	mbmb_hard_power_pin = 15
 
 	GPIO.setwarnings(False)
 	GPIO.setmode(GPIO.BOARD)
-	GPIO.setup(self.mbmb_reset_pin, GPIO.OUT)
-	GPIO.setup(self.mbmb_power_pin, GPIO.OUT)
-	GPIO.setup(self.mbmb_hard_power_pin, GPIO.OUT)
+	GPIO.setup(mbmb_reset_pin, GPIO.OUT)
+	GPIO.setup(mbmb_power_pin, GPIO.OUT)
+	GPIO.setup(mbmb_hard_power_pin, GPIO.OUT)
 
 	def __init__(self):
 		Test_case.__init__()
