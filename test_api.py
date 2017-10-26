@@ -6,7 +6,7 @@ import RPi.GPIO as GPIO
 import paho.mqtt.client as mqtt
 from dict_base import test_dict
 
-class Modem(object):
+class Modem(Test_case):
 	mbmb_power_pin = 11
 	mbmb_reset_pin  =13
 	mbmb_hard_power_pin = 15
@@ -18,7 +18,7 @@ class Modem(object):
 	GPIO.setup(mbmb_hard_power_pin, GPIO.OUT)
 
 	def __init__(self):
-		super().__init__()
+		Test_case.__init__()
 
 	def reset(self):
 		if self.check_modem_exists():
@@ -193,7 +193,7 @@ class Test_case(object):
 			f.write("auto wlan0")
 
 	def restart_modem(self):
-		self.Modem.reset()
+		Modem.reset()
 
 	def do_cleanup(self):
 		logging.debug("Test over, cleaning up")
