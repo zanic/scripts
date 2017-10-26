@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import sys, re, logging, time, subprocess, os
+import sys, re, logging, time, subprocess, os, fileinput
 from datetime import datetime
 import RPi.GPIO as GPIO
 import paho.mqtt.client as mqtt
