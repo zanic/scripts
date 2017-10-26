@@ -195,8 +195,5 @@ class Test_case(object):
 	def check_modem_exists(self):
 		return os.path.exists("/dev/gsmmodem")
 
-	def reboot_modem():
-
-
 	def do_cleanup(self):
 		logging.debug("Test over, cleaning up")
