@@ -137,15 +137,15 @@ class Test_case(object):
 		logging.debug("Test over, cleaning up")
 
 class Modem(Test_case):
-	mbmb_power_pin = 11
-	mbmb_reset_pin  =13
-	mbmb_hard_power_pin = 15
+	self.mbmb_power_pin = 11
+	self.mbmb_reset_pin  =13
+	self.mbmb_hard_power_pin = 15
 
 	GPIO.setwarnings(False)
 	GPIO.setmode(GPIO.BOARD)
-	GPIO.setup(mbmb_reset_pin, GPIO.OUT)
-	GPIO.setup(mbmb_power_pin, GPIO.OUT)
-	GPIO.setup(mbmb_hard_power_pin, GPIO.OUT)
+	GPIO.setup(self.mbmb_reset_pin, GPIO.OUT)
+	GPIO.setup(self.mbmb_power_pin, GPIO.OUT)
+	GPIO.setup(self.mbmb_hard_power_pin, GPIO.OUT)
 
 	def __init__(self):
 		Test_case.__init__()
