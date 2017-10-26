@@ -162,12 +162,14 @@ class Modem(Test_case):
 
 	def reset(self):
 		if self.check_modem_exists():
+			logging.debug("/dev/gsmmodem exists")
 			self.power_off()
 			time.sleep(3)
 			self.power_on()
 			self.reset()
 			return
 		else:
+			logging.debug("/dev/gsmmodem does not exist, try getting it back")
 			self.power_on()
 			self.reset()
 			time.sleep(5)
