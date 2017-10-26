@@ -175,6 +175,7 @@ class Modem(Test_case):
 
 
 	def power_off(self):
+		logging.debug("Powering off modem")
 		GPIO.output(self.mbmb_power_pin, False)
 		time.sleep(1)
 		GPIO.output(self.mbmb_power_pin, True)
@@ -185,6 +186,7 @@ class Modem(Test_case):
 		return
 	
 	def power_on(self):
+		logging.debug("Powering on modem")
 		GPIO.output(self.mbmb_hard_power_pin, True)
 		time.sleep(1)
 		GPIO.output(self.mbmb_power_pin, True)
@@ -195,6 +197,7 @@ class Modem(Test_case):
 		return
 
 	def reset(self):
+		logging.debug("Resetting modem")
 		GPIO.output(self.mbmb_reset_pin, True)
 		time.sleep(1)
 		GPIO.output(self.mbmb_reset_pin, False)
