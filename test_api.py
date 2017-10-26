@@ -20,7 +20,7 @@ class Modem(object):
 	def __init__(self):
 		super().__init__()
 
-	def init_modem(self):
+	def reset(self):
 		if self.check_modem_exists():
 			self.power_off()
 			time.sleep(3)
@@ -192,8 +192,8 @@ class Test_case(object):
 		with open(self.net_config, 'a') as f:
 			f.write("auto wlan0")
 
-	def check_modem_exists(self):
-		return os.path.exists("/dev/gsmmodem")
+	def restart_modem(self):
+		Modem.reset()
 
 	def do_cleanup(self):
 		logging.debug("Test over, cleaning up")
