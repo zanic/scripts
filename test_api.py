@@ -29,13 +29,15 @@ class Test_case(object):
 		self.dut = test_dict[self.name]['dut']
 		self.connection = test_dict[self.name]['connection']
 		self.nmag = test_dict[self.name]['nmag']
+		self.reboot = test_dict[self.name]['reboot']
 
 	def start(self):
 		self.mount_partition_as_rw()
 		if self.first_time_running():
 			self.make_backups()
-			self.disable_nmag()
 			self.add_testcase_to_appdef()
+			if self.nmag:
+				self.disable_nmag()
 			self.enable_wifi_auto()
 			self.reboot()
 		else:
@@ -86,7 +88,7 @@ class Test_case(object):
 
 	def make_backups(self):
 		print ("Making backups")
-		self.run_shell_process("sudo mkdir %s" % (self.backup_dir))
+		self.run_shell_process("mkdir %s" % (self.backup_dir))
 		self.run_shell_process("sudo cp %s %s."  % (self.net_config, self.backup_dir))
 		self.run_shell_process("sudo cp %s %s."  % (self.appdef, self.backup_dir))
 		logging.debug("Backups were made")
@@ -123,6 +125,7 @@ class Test_case(object):
 	def first_time_running(self):
 		logging.debug("Checking are we running for first time")
 		if os.path.exists(self.backup_dir):
+			print ("Not running for first time")
 			return False
 		else:
 			print("First time running")
