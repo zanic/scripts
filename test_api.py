@@ -10,7 +10,7 @@ class Test_case(object):
 
 	net_config = "/etc/network/interfaces"
 	appdef = "/home/pi/SmartSense/appdef"
-	appdef_test_line = "testcase:/home/pi/:./testcase_script.py :pi:no"
+	appdef_test_line = "testcase:/home/pi/:./testcase_script.py:: root:no\n"
 	backup_dir = "/home/pi/backup_dir/"
 	mqtt_broker = "localhost"
 	mqtt_broker_port = 1883
@@ -25,6 +25,7 @@ class Test_case(object):
 	GPIO.setup(mbmb_hard_power_pin, GPIO.OUT)
 
 	def __init__(self, name):
+		super(Test_case, self).__init__(name)
 		self.name = name
 		self.dut = test_dict[self.name]['dut']
 		self.connection = test_dict[self.name]['connection']
@@ -33,6 +34,7 @@ class Test_case(object):
 
 	def start(self):
 		self.mount_partition_as_rw()
+		self.init_modem()
 		if self.first_time_running():
 			self.make_backups()
 			self.add_testcase_to_appdef()
@@ -52,6 +54,10 @@ class Test_case(object):
 		self.mqtt.on_publish = self.on_publish
 		self.mqtt.connect(self.mqtt_broker, port=self.mqtt_broker_port, keepalive=60)
 		self.mqtt.loop_start()
+
+	def init_modem(self):
+		self.modem_power_on()
+		self.modem_reset()
 
 	def on_connect(self, client, userdata, flags, rc):
 	    self.mqtt_subscribe(client)
@@ -139,6 +145,9 @@ class Test_case(object):
 
 	def do_cleanup(self):
 		logging.debug("Test over, cleaning up")
+
+	def gps_test(self):
+
 
 	def modem_power_off(self):
 		GPIO.output(self.mbmb_power_pin, False)
