@@ -6,14 +6,7 @@ import RPi.GPIO as GPIO
 import paho.mqtt.client as mqtt
 from dict_base import test_dict
 
-class Test_case(object):
-
-	net_config = "/etc/network/interfaces"
-	appdef = "/home/pi/SmartSense/appdef"
-	appdef_test_line = "testcase:/home/pi/:./testcase_script.py:: root:no\n"
-	backup_dir = "/home/pi/backup_dir/"
-	mqtt_broker = "localhost"
-	mqtt_broker_port = 1883
+class Modem(object):
 	mbmb_power_pin = 11
 	mbmb_reset_pin  =13
 	mbmb_hard_power_pin = 15
@@ -23,6 +16,19 @@ class Test_case(object):
 	GPIO.setup(mbmb_reset_pin, GPIO.OUT)
 	GPIO.setup(mbmb_power_pin, GPIO.OUT)
 	GPIO.setup(mbmb_hard_power_pin, GPIO.OUT)
+
+	def __init__(self):
+		super().__init__()
+
+class Test_case(object):
+
+	net_config = "/etc/network/interfaces"
+	appdef = "/home/pi/SmartSense/appdef"
+	appdef_test_line = "testcase:/home/pi/:./testcase_script.py:: root:no\n"
+	backup_dir = "/home/pi/backup_dir/"
+	mqtt_broker = "localhost"
+	mqtt_broker_port = 1883
+
 
 	def __init__(self, name):
 		super().__init__()
