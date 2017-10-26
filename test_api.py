@@ -146,9 +146,6 @@ class Test_case(object):
 	def do_cleanup(self):
 		logging.debug("Test over, cleaning up")
 
-	def gps_test(self):
-
-
 	def modem_power_off(self):
 		GPIO.output(self.mbmb_power_pin, False)
 		time.sleep(1)
