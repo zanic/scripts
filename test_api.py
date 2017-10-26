@@ -19,7 +19,11 @@ class Modem(object):
 
 	def __init__(self):
 		super().__init__()
-		
+
+	def init_modem(self):
+		self.modem_power_on()
+		self.modem_reset()
+
 	def modem_power_off(self):
 		GPIO.output(self.mbmb_power_pin, False)
 		time.sleep(1)
@@ -88,9 +92,6 @@ class Test_case(object):
 		self.mqtt.connect(self.mqtt_broker, port=self.mqtt_broker_port, keepalive=60)
 		self.mqtt.loop_start()
 
-	def init_modem(self):
-		self.modem_power_on()
-		self.modem_reset()
 
 	def on_connect(self, client, userdata, flags, rc):
 	    self.mqtt_subscribe(client)
@@ -178,30 +179,3 @@ class Test_case(object):
 
 	def do_cleanup(self):
 		logging.debug("Test over, cleaning up")
-
-	def modem_power_off(self):
-		GPIO.output(self.mbmb_power_pin, False)
-		time.sleep(1)
-		GPIO.output(self.mbmb_power_pin, True)
-		time.sleep(2)
-		GPIO.output(self.mbmb_power_pin, False)
-		time.sleep(1)
-		GPIO.output(self.mbmb_hard_power_pin, False)
-		return
-	
-	def modem_power_on(self):
-		GPIO.output(self.mbmb_hard_power_pin, True)
-		time.sleep(1)
-		GPIO.output(self.mbmb_power_pin, True)
-		time.sleep(1)
-		GPIO.output(self.mbmb_power_pin, False)
-		time.sleep(0.18)
-		GPIO.output(self.mbmb_power_pin, True)
-		return
-	def modem_reset(self):
-		GPIO.output(self.mbmb_reset_pin, True)
-		time.sleep(1)
-		GPIO.output(self.mbmb_reset_pin, False)
-		time.sleep(0.1)
-		GPIO.output(self.mbmb_reset_pin, True)
-		return		
