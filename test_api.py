@@ -41,6 +41,7 @@ class Test_case(object):
 			self.enable_wifi_auto()
 			self.reboot()
 		else:
+			self.init_mqtt()
 			return
 
 
