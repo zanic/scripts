@@ -74,7 +74,7 @@ class Test_case(object):
 	    return
 
 	def process_mqtt_message(self, msg):
-		msg = msg.payload.decode('utf-8').split(',')
+		#msg = msg.payload.decode('utf-8').split(',')
 		#match = re.search("testing", msg.topic)
 		#if match:
 		print (msg.topic + " " + msg.payload)
