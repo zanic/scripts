@@ -22,6 +22,7 @@ class Test_case(object):
 	mbmb_reset_pin  =13
 	mbmb_hard_power_pin = 15
 
+	global TEST_START
 	TEST_START = False
 
 	GPIO.setwarnings(False)
@@ -75,7 +76,8 @@ class Test_case(object):
 	    return
 
 	def process_mqtt_message(self, msg):
-		#msg = msg.payload.decode('utf-8').split(',')
+		global TEST_START
+		
 		match = re.search("testing", msg.topic)
 		if match:
 			msg = msg.payload.decode('utf-8').split(',')
