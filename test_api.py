@@ -68,7 +68,7 @@ class Test_case(object):
 	    return
 	
 	def mqtt_subscribe(self, client):
-	    client.subscribe("smartcity/data/0/GPS/+")    
+	    #client.subscribe("smartcity/data/0/GPS/+")    
 	    client.subscribe("testing/+")
 	    return
 
@@ -152,9 +152,10 @@ class Test_case(object):
 	def start_test(self):
 		self.log.info("Starting test")
 		topic = "testing"
-		status = "STARTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJ"
-		self.mqtt.publish(topic, status, 1, 1)
-
+		status = "START"
+		while True:
+			self.mqtt.publish(topic, status, 1, 1)
+			time.sleep(3)
 
 class Modem(Test_case):
 
