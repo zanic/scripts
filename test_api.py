@@ -199,7 +199,7 @@ class Modem(Test_case):
 				self.restart()
 
 	def check_modem_return(self):
-		self.log.info("Checj")
+		self.log.info("Checking has modem returned")
 		sleep_time = 2
 		time_left = 30
 		while time_left - sleep_time > 0:
