@@ -177,11 +177,11 @@ class Modem(Test_case):
 			self.reset()
 			sleep_time = 2
 			time_left = 30
-			while time_left - sleep_time > 0:
+			while time_left-sleep_time > 0:
 				if self.check_modem_exists():
 					return
 				else:
-					self.restart()
+					time.sleep(sleep_time)
 
 
 	def power_off(self):
