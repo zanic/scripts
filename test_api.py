@@ -69,7 +69,7 @@ class Test_case(object):
 	
 	def mqtt_subscribe(self, client):
 	    client.subscribe("smartcity/data/0/GPS/+")    
-	    client.subscribe("testing/")
+	    client.subscribe("testing/+")
 	    return
 
 	def process_mqtt_message(self, msg):
