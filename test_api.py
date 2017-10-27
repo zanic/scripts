@@ -22,6 +22,8 @@ class Test_case(object):
 	mbmb_reset_pin  =13
 	mbmb_hard_power_pin = 15
 
+	TEST_START = False
+
 	GPIO.setwarnings(False)
 	GPIO.setmode(GPIO.BOARD)
 	GPIO.setup(mbmb_reset_pin, GPIO.OUT)
@@ -77,11 +79,13 @@ class Test_case(object):
 		match = re.search("testing", msg.topic)
 		if match:
 			msg = msg.payload.decode('utf-8').split(',')
-			self.log.info(msg[0])
+			if msg == "START":
+				self.log.info(msg[0])đ
+				TEST_START = True
 			return
 
 		match = re.search("smartcity/data/0/GPS", msg.topic)
-		if match:
+		if match and TEST_START:
 			msg = (msg.payload.decode('utf-8').split(','))
 			self.log.info(msg[0] + " " + msg[2])
 
