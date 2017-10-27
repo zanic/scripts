@@ -76,7 +76,7 @@ class Test_case(object):
 		msg = msg.payload.decode('utf-8').split(',')
 		#match = re.search("testing", msg.topic)
 		#if match:
-		print (msg.payload)
+		print (msg)
 		self.log.info(str(msg))
 
 	def run_shell_process(self, cmd):
