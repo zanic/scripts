@@ -13,7 +13,7 @@ class Test_case(object):
 
 	net_config = "/etc/network/interfaces"
 	appdef = "/home/pi/SmartSense/appdef"
-	appdef_test_line = "testcase:/home/pi/scripts/:./test.py:: root:no\n"
+	appdef_test_line = "testcase:/home/pi/scripts/:./test.py::root:no\n"
 	backup_dir = "/home/pi/backup_dir/"
 	mqtt_broker = "localhost"
 	mqtt_broker_port = 1883
@@ -78,7 +78,7 @@ class Test_case(object):
 			print (msg.payload)
 
 		msg = msg.payload.decode('utf-8').split(',')
-		print(str(msg))
+		self.log.info(str(msg))
 
 	def run_shell_process(self, cmd):
 		try:
