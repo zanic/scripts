@@ -182,6 +182,7 @@ class Modem(Test_case):
 					return
 				else:
 					time.sleep(sleep_time)
+			self.restart()
 
 
 	def power_off(self):
