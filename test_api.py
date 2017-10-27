@@ -9,6 +9,8 @@ from dict_base import test_dict
 
 class Test_case(object):
 
+	log = logging.getlogger('test_api.Test_case')
+
 	net_config = "/etc/network/interfaces"
 	appdef = "/home/pi/SmartSense/appdef"
 	appdef_test_line = "testcase:/home/pi/:./testcase_script.py:: root:no\n"
@@ -87,7 +89,7 @@ class Test_case(object):
 	def mount_partition_as_rw(self):
 		print ("Mounting partition as rw")
 		self.run_shell_process("sudo mount -o remount rw /")
-		logging.debug("Partition is mount as rw")
+		self.log.info("Partition is mount as rw")
 		return
 
 	def make_backups(self):
@@ -95,11 +97,11 @@ class Test_case(object):
 		self.run_shell_process("mkdir %s" % (self.backup_dir))
 		self.run_shell_process("sudo cp %s %s."  % (self.net_config, self.backup_dir))
 		self.run_shell_process("sudo cp %s %s."  % (self.appdef, self.backup_dir))
-		logging.debug("Backups were made")
+		self.log.info("Backups were made")
 		return
 
 	def disable_nmag(self):
-		logging.debug("Disabling nmag")
+		self.log.info("Disabling nmag")
 		print ("Disabling nmag")
 		with open(self.appdef) as f:
 			for line in f.readlines():
@@ -111,23 +113,23 @@ class Test_case(object):
 
 	def add_testcase_to_appdef(self):
 		print ("Appending our script to appdef")
-		logging.debug("Appending our script to appdef")
+		self.log.info("Appending our script to appdef")
 		with open(self.appdef, 'a') as f:
 			f.write(self.appdef_test_line)
-		logging.debug("Testcase added to appdef, will be started on next boot")
+		self.log.info("Testcase added to appdef, will be started on next boot")
 
 	def check_reset_counter(self):
-		logging.debug("Checking check_reset_counter")
+		self.log.info("Checking check_reset_counter")
 		cmd = "sudo uboot_env -n reset_counter | grep -oE '[[:digit::]]'"
 		return self.run_shell_process(cmd)
 
 	def reboot(self):
 		print ("Going for a reboot")
-		logging.debug("Going down for a reboot")
+		self.log.info("Going down for a reboot")
 		self.run_shell_process("sudo reboot")
 
 	def first_time_running(self):
-		logging.debug("Checking are we running for first time")
+		self.log.info("Checking are we running for first time")
 		if os.path.exists(self.backup_dir):
 			print ("Not running for first time")
 			return False
@@ -136,7 +138,7 @@ class Test_case(object):
 			return True
 
 	def enable_wifi_auto(self):
-		logging.debug("Setting wifi auto mode")
+		self.log.info("Setting wifi auto mode")
 		with open(self.net_config, 'a') as f:
 			f.write("auto wlan0")
 
@@ -144,9 +146,10 @@ class Test_case(object):
 		Modem().restart()
 
 	def do_cleanup(self):
-		logging.debug("Test over, cleaning up")
+		self.log.info("Test over, cleaning up")
 
 class Modem(Test_case):
+
 	mbmb_power_pin = 11
 	mbmb_reset_pin  =13
 	mbmb_hard_power_pin = 15
@@ -162,14 +165,14 @@ class Modem(Test_case):
 
 	def restart(self):
 		if self.check_modem_exists():
-			logging.debug("/dev/gsmmodem exists")
+			self.log.info("/dev/gsmmodem exists")
 			self.power_off()
 			time.sleep(3)
 			self.power_on()
 			self.reset()
 			return
 		else:
-			logging.debug("/dev/gsmmodem does not exist, try getting it back")
+			self.log.info("/dev/gsmmodem does not exist, try getting it back")
 			self.power_on()
 			self.reset()
 			time.sleep(20)
@@ -177,7 +180,7 @@ class Modem(Test_case):
 
 
 	def power_off(self):
-		logging.debug("Powering off modem")
+		self.log.info("Powering off modem")
 		GPIO.output(self.mbmb_power_pin, False)
 		time.sleep(1)
 		GPIO.output(self.mbmb_power_pin, True)
@@ -188,7 +191,7 @@ class Modem(Test_case):
 		return
 	
 	def power_on(self):
-		logging.debug("Powering on modem")
+		self.log.info("Powering on modem")
 		GPIO.output(self.mbmb_hard_power_pin, True)
 		time.sleep(1)
 		GPIO.output(self.mbmb_power_pin, True)
@@ -199,7 +202,7 @@ class Modem(Test_case):
 		return
 
 	def reset(self):
-		logging.debug("Resetting modem")
+		self.log.info("Resetting modem")
 		GPIO.output(self.mbmb_reset_pin, True)
 		time.sleep(1)
 		GPIO.output(self.mbmb_reset_pin, False)
