@@ -37,7 +37,6 @@ class Test_case(object):
 		self.nmag = test_dict[self.name]['nmag']
 		self.include_reboot = test_dict[self.name]['reboot']
 
-	def start(self):
 		self.mount_partition_as_rw()
 		if self.first_time_running():
 			self.make_backups()
