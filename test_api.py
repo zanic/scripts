@@ -80,8 +80,8 @@ class Test_case(object):
 			self.log.info(msg[0])
 		match = re.search("smartcity/data/0/GPS", msg.topic)
 		if match:
-			msg = (msg.payload.decode('utf-8').split(',')
-			self.log.info(msg[0] + " " + msg[2]))
+			msg = (msg.payload.decode('utf-8').split(','))
+			self.log.info(msg[0] + " " + msg[2])
 
 	def run_shell_process(self, cmd):
 		try:
