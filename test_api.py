@@ -188,6 +188,8 @@ class Modem(Test_case):
 
 		else:
 			self.log.info("/dev/gsmmodem does not exist, try getting it back")
+			self.power_off()
+			time.sleep(3)
 			self.power_on()
 			self.reset()
 			if self.check_modem_return():
