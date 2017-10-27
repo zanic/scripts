@@ -80,7 +80,7 @@ class Test_case(object):
 		if match:
 			msg = msg.payload.decode('utf-8').split(',')
 			if msg == "START":
-				self.log.info(msg[0])đ
+				self.log.info(msg[0])
 				TEST_START = True
 			return
 
