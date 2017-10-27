@@ -147,10 +147,17 @@ class Test_case(object):
 			f.write("auto wlan0")
 
 	def restart_modem(self):
-		Modem().restart()
+		retry = 0
+		while Modem().restart() != True:
+			retry = retry + 1
+			if retry > 5:
+				self.log.info("Modem could not be returned, exit")
+				self.do_cleanup()
+
 
 	def do_cleanup(self):
 		self.log.info("Test over, cleaning up")
+		exit()
 
 	def start_test(self):
 		self.log.info("Starting test")
@@ -183,10 +190,9 @@ class Modem(Test_case):
 			self.power_on()
 			self.reset()
 			if self.check_modem_return():
-				return
+				return True
 			else:
-				self.restart()
-
+				return False
 		else:
 			self.log.info("/dev/gsmmodem does not exist, try getting it back")
 			self.power_off()
