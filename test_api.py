@@ -91,13 +91,11 @@ class Test_case(object):
 		return output.decode(encoding="utf-8", errors="ignore").rstrip()
 
 	def mount_partition_as_rw(self):
-		print ("Mounting partition as rw")
 		self.run_shell_process("sudo mount -o remount rw /")
 		self.log.info("Partition is mount as rw")
 		return
 
 	def make_backups(self):
-		print ("Making backups")
 		self.run_shell_process("mkdir %s" % (self.backup_dir))
 		self.run_shell_process("sudo cp %s %s."  % (self.net_config, self.backup_dir))
 		self.run_shell_process("sudo cp %s %s."  % (self.appdef, self.backup_dir))
@@ -106,17 +104,11 @@ class Test_case(object):
 
 	def disable_nmag(self):
 		self.log.info("Disabling nmag")
-		print ("Disabling nmag")
-		with open(self.appdef) as f:
-			for line in f.readlines():
-				if "#nmag" in line:
-					return
 		for line in fileinput.input(self.appdef, inplace=True):
 			print (line.rstrip().replace('nmag', '#nmag'))
 			return
 
 	def add_testcase_to_appdef(self):
-		print ("Appending our script to appdef")
 		self.log.info("Appending our script to appdef")
 		with open(self.appdef, 'a') as f:
 			f.write(self.appdef_test_line)
@@ -128,17 +120,16 @@ class Test_case(object):
 		return self.run_shell_process(cmd)
 
 	def reboot(self):
-		print ("Going for a reboot")
 		self.log.info("Going down for a reboot")
 		self.run_shell_process("sudo reboot")
 
 	def first_time_running(self):
 		self.log.info("Checking are we running for first time")
 		if os.path.exists(self.backup_dir):
-			print ("Not running for first time")
+			self.log.info("Not running for first time")
 			return False
 		else:
-			print("First time running")
+			self.log.info("First time running")
 			return True
 
 	def enable_wifi_auto(self):
