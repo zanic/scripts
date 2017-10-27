@@ -181,20 +181,30 @@ class Modem(Test_case):
 			time.sleep(3)
 			self.power_on()
 			self.reset()
-			return
+			if self.check_modem_return():
+				return
+			else:
+				self.restart()
+
 		else:
 			self.log.info("/dev/gsmmodem does not exist, try getting it back")
 			self.power_on()
 			self.reset()
-			sleep_time = 2
-			time_left = 30
-			while time_left-sleep_time > 0:
-				if self.check_modem_exists():
-					self.log.info("Modem is back")
-					return
-				else:
-					time.sleep(sleep_time)
-			self.restart()
+			if self.check_modem_return():
+				return
+			else:
+				self.restart()
+
+	def check_modem_return(self):
+		sleep_time = 2
+		time_left = 30
+		while time_left - sleep_time > 0:
+			if self.check_modem_exists():
+				self.log.info("Modem is back")
+				return True
+			else:
+				time.sleep(sleep_time)
+		return False
 
 
 	def power_off(self):
