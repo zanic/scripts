@@ -153,7 +153,7 @@ class Test_case(object):
 		self.log.info("Starting test")
 		topic = "testing"
 		status = "STARTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJ"
-		self.mqtt.publish(topic, status)
+		self.mqtt.publish(topic, status, 1, 1)
 
 
 class Modem(Test_case):
