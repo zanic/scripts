@@ -13,7 +13,7 @@ class Test_case(object):
 
 	net_config = "/etc/network/interfaces"
 	appdef = "/home/pi/SmartSense/appdef"
-	appdef_test_line = "testcase:/home/pi/:./testcase_script.py:: root:no\n"
+	appdef_test_line = "testcase:/home/pi/scripts/:./test.py:: root:no\n"
 	backup_dir = "/home/pi/backup_dir/"
 	mqtt_broker = "localhost"
 	mqtt_broker_port = 1883
@@ -112,7 +112,7 @@ class Test_case(object):
 				if "#nmag" in line:
 					return
 		for line in fileinput.input(self.appdef, inplace=True):
-			print (line.rstrip().replace('nmag:', '#nmag'))
+			print (line.rstrip().replace('nmag', '#nmag'))
 			return
 
 	def add_testcase_to_appdef(self):
