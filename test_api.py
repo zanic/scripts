@@ -204,6 +204,7 @@ class Modem(Test_case):
 				return True
 			else:
 				time.sleep(sleep_time)
+		self.log.info("Modem has not returned")
 		return False
 
 
