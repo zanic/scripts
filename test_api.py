@@ -68,7 +68,7 @@ class Test_case(object):
 		return
 	
 	def mqtt_subscribe(self, client):
-	    #client.subscribe("smartcity/data/0/GPS/+")    
+	    client.subscribe("smartcity/data/0/GPS/+")    
 	    client.subscribe("testing")
 	    return
 
@@ -77,8 +77,9 @@ class Test_case(object):
 		match = re.search("testing", msg.topic)
 		if match:
 			self.log.info(msg.payload.decode('utf-8').split(','))
-		self.log.info(str(msg.topic) + " " + str(msg.payload))
-		#self.log.info(str(msg))
+		match = re.search("smartcity(data/0/GPS", msg.topic)
+		if match:
+			self.log.info(msg.payload.decode('utf-8').split(','))
 
 	def run_shell_process(self, cmd):
 		try:
