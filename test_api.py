@@ -9,7 +9,7 @@ from dict_base import test_dict
 
 class Test_case(object):
 
-	log = logging.getLogger('test_api.Test_case')
+	log = logging.getLogger('Test_case')
 
 	net_config = "/etc/network/interfaces"
 	appdef = "/home/pi/SmartSense/appdef"
@@ -176,7 +176,10 @@ class Modem(Test_case):
 			self.power_on()
 			self.reset()
 			time.sleep(20)
-			self.restart()
+			if self.check_modem_exists():
+				return
+			else:
+				self.restart()
 
 
 	def power_off(self):
