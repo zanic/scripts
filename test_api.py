@@ -154,9 +154,7 @@ class Test_case(object):
 		self.log.info("Starting test")
 		topic = "testing"
 		status = "START"
-		while True:
-			self.mqtt.publish(topic, status, 1, 1)
-			time.sleep(3)
+		self.mqtt.publish(topic, status, 1, 1)
 
 class Modem(Test_case):
 
