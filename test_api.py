@@ -185,24 +185,16 @@ class Modem(Test_case):
 		self.log.info("Restarting modem")
 		if self.check_modem_exists():
 			self.log.info("/dev/gsmmodem exists")
-			self.power_off()
-			time.sleep(3)
-			self.power_on()
-			self.reset()
-			if self.check_modem_return():
-				return True
-			else:
-				return False
 		else:
 			self.log.info("/dev/gsmmodem does not exist, try getting it back")
-			self.power_off()
-			time.sleep(3)
-			self.power_on()
-			self.reset()
-			if self.check_modem_return():
-				return
-			else:
-				self.restart()
+		self.power_off()
+		time.sleep(3)
+		self.power_on()
+		self.reset()
+		if self.check_modem_return():
+			return True
+		else:
+			return False
 
 	def check_modem_return(self):
 		self.log.info("Checking has modem returned")
