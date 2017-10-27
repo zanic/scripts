@@ -178,6 +178,7 @@ class Modem(Test_case):
 			time_left = 30
 			while time_left-sleep_time > 0:
 				if self.check_modem_exists():
+					self.log.info("Modem is back")
 					return
 				else:
 					time.sleep(sleep_time)
