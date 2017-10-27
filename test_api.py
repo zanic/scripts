@@ -9,7 +9,7 @@ from dict_base import test_dict
 
 class Test_case(object):
 
-	log = logging.getlogger('test_api.Test_case')
+	log = logging.getLogger('test_api.Test_case')
 
 	net_config = "/etc/network/interfaces"
 	appdef = "/home/pi/SmartSense/appdef"
