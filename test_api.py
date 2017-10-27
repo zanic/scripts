@@ -199,6 +199,7 @@ class Modem(Test_case):
 				self.restart()
 
 	def check_modem_return(self):
+		self.log.info("Checj")
 		sleep_time = 2
 		time_left = 30
 		while time_left - sleep_time > 0:
@@ -240,6 +241,7 @@ class Modem(Test_case):
 		GPIO.output(self.mbmb_reset_pin, False)
 		time.sleep(0.1)
 		GPIO.output(self.mbmb_reset_pin, True)
+		self.log.info("Modem is reset")
 		return
 
 	def check_modem_exists(self):
