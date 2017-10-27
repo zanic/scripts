@@ -22,7 +22,7 @@ class Test_case(object):
 	mbmb_reset_pin  =13
 	mbmb_hard_power_pin = 15
 
-	global TEST_START TEST_START_TIME
+	global TEST_START, TEST_START_TIME
 	TEST_START = False
 
 	GPIO.setwarnings(False)
