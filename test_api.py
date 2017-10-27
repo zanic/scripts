@@ -106,7 +106,7 @@ class Test_case(object):
 		self.log.info("Disabling nmag")
 		for line in fileinput.input(self.appdef, inplace=True):
 			print (line.rstrip().replace('nmag', '#nmag'))
-			return
+		return
 
 	def add_testcase_to_appdef(self):
 		self.log.info("Appending our script to appdef")
