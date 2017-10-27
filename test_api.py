@@ -81,8 +81,8 @@ class Test_case(object):
 		match = re.search("testing", msg.topic)
 		if match:
 			msg = msg.payload.decode('utf-8').split(',')
-			self.log.info(msg[0])
-			if msg == "START":
+			if msg[0] == "START":
+				self.log.info(msg[0])
 				TEST_START = True
 			return
 
