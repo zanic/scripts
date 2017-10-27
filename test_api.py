@@ -153,7 +153,7 @@ class Test_case(object):
 	def start_test(self):
 		self.log.info("Starting test")
 		topic = "testing"
-		status = True
+		status = "START"
 		self.mqtt.publish(topic, status)
 
 
