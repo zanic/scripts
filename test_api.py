@@ -69,9 +69,14 @@ class Test_case(object):
 	
 	def mqtt_subscribe(self, client):
 	    client.subscribe("smartcity/data/0/GPS/+")    
+	    client.subscribe("testing/")
 	    return
 
 	def process_mqtt_message(self, msg):
+		match = re.search("testing", msg.topic)
+		if match:
+			print (msg.payload)
+
 		msg = msg.payload.decode('utf-8').split(',')
 		print(str(msg))
 
@@ -146,6 +151,12 @@ class Test_case(object):
 
 	def do_cleanup(self):
 		self.log.info("Test over, cleaning up")
+
+	def start_test(self):
+		topic = "testing"
+		status = True
+		self.mqtt.publish(topic, status)
+
 
 class Modem(Test_case):
 
