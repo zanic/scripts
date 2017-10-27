@@ -78,6 +78,8 @@ class Test_case(object):
 		if match:
 			msg = msg.payload.decode('utf-8').split(',')
 			self.log.info(msg[0])
+			return
+
 		match = re.search("smartcity/data/0/GPS", msg.topic)
 		if match:
 			msg = (msg.payload.decode('utf-8').split(','))
