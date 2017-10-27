@@ -73,11 +73,10 @@ class Test_case(object):
 	    return
 
 	def process_mqtt_message(self, msg):
-		match = re.search("testing", msg.topic)
-		if match:
-			print (msg.payload)
-
 		msg = msg.payload.decode('utf-8').split(',')
+		#match = re.search("testing", msg.topic)
+		#if match:
+		print (msg.payload)
 		self.log.info(str(msg))
 
 	def run_shell_process(self, cmd):
@@ -153,7 +152,7 @@ class Test_case(object):
 	def start_test(self):
 		self.log.info("Starting test")
 		topic = "testing"
-		status = "START"
+		status = "STARTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJ"
 		self.mqtt.publish(topic, status)
 
 
