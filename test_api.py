@@ -65,7 +65,6 @@ class Test_case(object):
 	    self.process_mqtt_message(msg)
 	
 	def on_publish(self, client, userdata, mid):
-		self.log.info("Mqtt message published " + str(mid))
 		return
 	
 	def mqtt_subscribe(self, client):
@@ -79,7 +78,7 @@ class Test_case(object):
 		#if match:
 		print (str(msg.topic) + " " + str(msg.payload))
 		self.log.info(str(msg.topic) + " " + str(msg.payload))
-		self.log.info(str(msg))
+		#self.log.info(str(msg))
 
 	def run_shell_process(self, cmd):
 		try:
