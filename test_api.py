@@ -77,7 +77,7 @@ class Test_case(object):
 		match = re.search("testing", msg.topic)
 		if match:
 			self.log.info(msg.payload.decode('utf-8').split(','))
-		match = re.search("smartcity(data/0/GPS", msg.topic)
+		match = re.search("smartcity/data/0/GPS", msg.topic)
 		if match:
 			self.log.info(msg.payload.decode('utf-8').split(','))
 
