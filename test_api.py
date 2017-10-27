@@ -175,11 +175,13 @@ class Modem(Test_case):
 			self.log.info("/dev/gsmmodem does not exist, try getting it back")
 			self.power_on()
 			self.reset()
-			time.sleep(20)
-			if self.check_modem_exists():
-				return
-			else:
-				self.restart()
+			sleep_time = 2
+			time_left = 30
+			while time_left - sleep_time > 0:
+				if self.check_modem_exists():
+					return
+				else:
+					self.restart()
 
 
 	def power_off(self):
