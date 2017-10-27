@@ -76,7 +76,8 @@ class Test_case(object):
 		msg = msg.payload.decode('utf-8').split(',')
 		#match = re.search("testing", msg.topic)
 		#if match:
-		print (msg)
+		print (msg.topic + " " + msg.payload)
+		self.log.info(str(msg.topic) + " " + str(msg.payload))
 		self.log.info(str(msg))
 
 	def run_shell_process(self, cmd):
@@ -199,7 +200,6 @@ class Modem(Test_case):
 			else:
 				time.sleep(sleep_time)
 				time_left = time_left - sleep_time
-				self.log.info("Not yet, sleep 2 of %s" % (time_left))
 		self.log.info("Modem has not returned")
 		return False
 
