@@ -175,6 +175,7 @@ class Modem(Test_case):
 		pass
 
 	def restart(self):
+		self.log.info("Restarting modem")
 		if self.check_modem_exists():
 			self.log.info("/dev/gsmmodem exists")
 			self.power_off()
