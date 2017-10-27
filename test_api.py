@@ -65,11 +65,12 @@ class Test_case(object):
 	    self.process_mqtt_message(msg)
 	
 	def on_publish(self, client, userdata, mid):
+		self.log.info("Mqtt message published " + str(mid))
 	    return
 	
 	def mqtt_subscribe(self, client):
 	    #client.subscribe("smartcity/data/0/GPS/+")    
-	    client.subscribe("testing/+")
+	    client.subscribe("testing")
 	    return
 
 	def process_mqtt_message(self, msg):
