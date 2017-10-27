@@ -22,7 +22,7 @@ class Test_case(object):
 	mbmb_reset_pin  =13
 	mbmb_hard_power_pin = 15
 
-	global TEST_START
+	global TEST_START TEST_START_TIME
 	TEST_START = False
 
 	GPIO.setwarnings(False)
@@ -76,19 +76,20 @@ class Test_case(object):
 	    return
 
 	def process_mqtt_message(self, msg):
-		global TEST_START
+		global TEST_START 
 
 		match = re.search("testing", msg.topic)
 		if match:
-			msg = msg.payload.decode('utf-8').split(',')
-			if msg[0] == "START":
-				self.log.info(msg[0])
+			msg = (msg.payload.decode('utf-8').split(','))[0]
+			if msg == "START":
+				self.log.info(msg)
 				TEST_START = True
 			return
 
 		match = re.search("smartcity/data/0/GPS", msg.topic)
 		if match and TEST_START:
 			msg = (msg.payload.decode('utf-8').split(','))
+
 			self.log.info(msg[0] + " " + msg[2])
 
 	def run_shell_process(self, cmd):
@@ -162,9 +163,12 @@ class Test_case(object):
 		exit()
 
 	def start_test(self):
+		global TEST_START_TIME
+
 		self.log.info("Starting test")
 		topic = "testing"
 		status = "START"
+		TEST_START_TIME = datetime.now()
 		self.mqtt.publish(topic, status, 1, 1)
 
 class Modem(Test_case):
