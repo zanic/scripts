@@ -77,12 +77,12 @@ class Test_case(object):
 
 	def process_mqtt_message(self, msg):
 		global TEST_START
-		
+
 		match = re.search("testing", msg.topic)
 		if match:
 			msg = msg.payload.decode('utf-8').split(',')
+			self.log.info(msg[0])
 			if msg == "START":
-				self.log.info(msg[0])
 				TEST_START = True
 			return
 
