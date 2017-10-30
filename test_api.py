@@ -97,7 +97,7 @@ class Test_case(object):
 				time = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
 				self.dict_gps_coords[time] = str(msg[0]) + ":" + str(msg[2])
 				
-				if len(self.dict_gps_coords) > 10:
+				if len(self.dict_gps_coords) > 3:
 					self.log.info("Gotovo")
 					self.end_test()
 
@@ -171,7 +171,7 @@ class Test_case(object):
 	def do_cleanup(self):
 		self.log.info("Test over, cleaning up")
 		with open(self.report_file, 'a') as f:
-			f.write(self.timestamp_begin + " : " + self.timestamp_end)
+			f.write(self.timestamp_begin + " : " + self.timestamp_end + "\n")
 		self.dict_gps_coords.clear()
 		self.test_run_state = False
 		#exit()
