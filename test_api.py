@@ -174,7 +174,7 @@ class Test_case(object):
 			f.write(self.timestamp_begin.strftime('%d.%m.%Y %H:%M:%S')
 			 + " : " + self.timestamp_end.strftime('%d.%m.%Y %H:%M:%S') + 
 			 "diff=" + (self.timestamp_end-self.timestamp_begin).strftime('%d.%m.%Y %H:%M:%S')
-			  "\n")
+			 +  "\n")
 		self.dict_gps_coords.clear()
 		self.test_run_state = False
 		#exit()
