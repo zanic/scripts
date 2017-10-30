@@ -22,9 +22,6 @@ class Test_case(object):
 	mbmb_reset_pin  =13
 	mbmb_hard_power_pin = 15
 
-	global TEST_RUN_STATE
-	TEST_RUN_STATE = False
-
 	GPIO.setwarnings(False)
 	GPIO.setmode(GPIO.BOARD)
 	GPIO.setup(mbmb_reset_pin, GPIO.OUT)
@@ -40,6 +37,7 @@ class Test_case(object):
 		self.nmag = test_dict[self.test_name]['nmag']
 		self.include_reboot = test_dict[self.test_name]['reboot']
 
+		self.test_run_state = False
 		# Dict containing GPS data 
 		self.dict_gps_coords = {}
 		# Dict containing test starting and ending time
@@ -86,9 +84,8 @@ class Test_case(object):
 			self.process_mqtt_gps_data(msg)
 
 	def process_mqtt_gps_data(self, msg):
-		global TEST_RUN_STATE
 
-		if TEST_RUN_STATE == True:
+		if self.test_run_state == True:
 			#self.log.info(msg[0] + " " + msg[2])
 			
 			if float(msg[0]) > 1.1 and float(msg[2]) > 1.1:
@@ -174,19 +171,18 @@ class Test_case(object):
 
 	def start_test(self):
 		self.log.info("Starting test")
-		global TEST_RUN_STATE
-		TEST_RUN_STATE = True
+		self.test_run_state = True
 
 		timestamp_begin = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
-		self.dict_run_times[status] = timestamp_begin
+		self.dict_run_times[self.test_run_state] = timestamp_begin
 		self.log.info("Test started with time: " + timestamp_begin)
 
 	def end_test(self):
 		self.log.info("Stoping test")
-		
+		self.test_run_state = False
 		timestamp_end = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
 		self.log.info("Test ended with time: " + timestamp_end)
-		self.dict_run_times[status] = timestamp_end
+		self.dict_run_times[self.test_run_state] = timestamp_end
 		self.do_cleanup()
 
 
