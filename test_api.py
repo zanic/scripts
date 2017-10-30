@@ -204,6 +204,7 @@ class Test_case(object):
 		status = "START"
 		timestamp_begin = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
 		self.dict_run_times[status] = timestamp_begin
+		self.log.info("Test started with time: " + timestamp_begin)
 		#self.mqtt.publish(topic, status, 1, 1)
 
 	def end_test(self):
