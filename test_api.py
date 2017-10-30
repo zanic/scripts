@@ -172,8 +172,8 @@ class Test_case(object):
 			 + " : " + self.timestamp_end.strftime('%d.%m.%Y %H:%M:%S') + 
 			 " diff=" + str((self.timestamp_end-self.timestamp_begin).total_seconds()) +  "\n")
 			 """
-			 for key, value in self.dict_gps_coords.items():
-			 	f.write(str(key) + ": " + str(value))
+			for key, value in self.dict_gps_coords.items():
+				f.write(str(key) + ": " + str(value))
 		print (self.dict_gps_coords)
 		self.dict_gps_coords.clear()
 		self.test_run_state = False
