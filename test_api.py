@@ -184,7 +184,7 @@ class Test_case(object):
 		self.test_run_state = True
 
 		self.timestamp_begin = datetime.now()
-		self.dict_run_times[self.test_run_state] = self.timestamp_begin.
+		self.dict_run_times[self.test_run_state] = self.timestamp_begin
 		self.log.info("Test started with time: " + self.timestamp_begin).strftime('%d.%m.%Y %H:%M:%S')
 
 		while self.test_run_state != False:
