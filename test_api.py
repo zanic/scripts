@@ -49,7 +49,7 @@ class Test_case(object):
 		if self.first_time_running():
 			self.make_backups()
 			self.add_testcase_to_appdef()
-			if self.nmag:
+			if not self.nmag:
 				self.disable_nmag()
 			self.enable_wifi_auto()
 			self.reboot()
