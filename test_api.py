@@ -62,18 +62,18 @@ class Test_case(object):
 
 
 	def on_connect(self, client, userdata, flags, rc):
-	    self.mqtt_subscribe(client)
+		self.mqtt_subscribe(client)
 	
 	def on_message(self, client, userdata, msg):
-	    self.process_mqtt_message(msg)
+		self.process_mqtt_message(msg)
 	
 	def on_publish(self, client, userdata, mid):
 		return
 	
 	def mqtt_subscribe(self, client):
-	    client.subscribe("smartcity/data/0/GPS/+")    
-	    client.subscribe("testing")
-	    return
+		client.subscribe("smartcity/data/0/GPS/+")    
+		client.subscribe("testing")
+		return
 
 	def process_mqtt_message(self, msg):
 
@@ -111,7 +111,7 @@ class Test_case(object):
 		if TEST_RUN_STATE == True:
 			self.log.info(msg[0] + " " + msg[2])
 			if float(msg[0]) > 1.1 and float(msg[2]) > 1.1:
-				
+				self.log.info(msg)
 
 	def run_shell_process(self, cmd):
 		try:
