@@ -32,13 +32,13 @@ class Test_case(object):
 	GPIO.setup(mbmb_hard_power_pin, GPIO.OUT)
 
 
-	def __init__(self, name):
+	def __init__(self, test_name):
 		super().__init__()
-		self.name = name
-		self.dut = test_dict[self.name]['dut']
-		self.connection = test_dict[self.name]['connection']
-		self.nmag = test_dict[self.name]['nmag']
-		self.include_reboot = test_dict[self.name]['reboot']
+		self.test_name = name
+		self.dut = test_dict[self.test_name]['dut']
+		self.connection = test_dict[self.test_name]['connection']
+		self.nmag = test_dict[self.test_name]['nmag']
+		self.include_reboot = test_dict[self.test_name]['reboot']
 
 		# Dict containing GPS data 
 		self.dict_gps_coords = {}
