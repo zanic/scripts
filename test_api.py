@@ -117,7 +117,7 @@ class Test_case(object):
 				self.log.info(msg)
 				time = datetime.now()
 				self.dict_gps_coords[time] = str(msg[0]) + ":" + str(msg[2])
-				if len(dict) > 10:
+				if len(self.dict_gps_coords) > 10:
 					self.log.info("Gotovo")
 					self.do_cleanup()
 
