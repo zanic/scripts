@@ -90,12 +90,12 @@ class Test_case(object):
 	def process_mqtt_gps_data(self, msg):
 
 		if self.test_run_state == True:
-			#self.log.info(msg[0] + " " + msg[2])
+			self.log.info(msg[0] + " " + msg[2])
 			
 			if float(msg[0]) > 1.1 and float(msg[2]) > 1.1:
 				self.log.info(msg)
-				timestamp_begin = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
-				self.dict_gps_coords[timestamp_begin] = str(msg[0]) + ":" + str(msg[2])
+				time = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
+				self.dict_gps_coords[time] = str(msg[0]) + ":" + str(msg[2])
 				
 				if len(self.dict_gps_coords) > 10:
 					self.log.info("Gotovo")
@@ -157,7 +157,7 @@ class Test_case(object):
 	def enable_wifi_auto(self):
 		self.log.info("Setting wifi auto mode")
 		with open(self.net_config, 'a') as f:
-			f.write("auto wlan0")
+			f.write("auto wlan0\n")
 
 	def restart_modem(self):
 		retry = 0
