@@ -42,6 +42,8 @@ class Test_case(object):
 
 		# Dict containing GPS data 
 		self.dict_gps_coords = {}
+		# Dict containing test starting and ending time
+		self.dict_run_time = {}
 
 		self.mount_partition_as_rw()
 		if self.first_time_running():
@@ -85,11 +87,6 @@ class Test_case(object):
 			msg_payload = (msg.payload.decode('utf-8').split(','))[0]
 			self.process_mqtt_test_status(msg_payload)
 			
-			if msg == "START":
-				self.log.info(msg)
-				TEST_RUN_STATE = True
-			return
-
 		match = re.search("smartcity/data/0/GPS", msg.topic)
 		if match:
 			msg = (msg.payload.decode('utf-8').split(','))
@@ -99,6 +96,7 @@ class Test_case(object):
 
 	def process_mqtt_test_status(self, msg):
 		global TEST_RUN_STATE
+		time = datetime.now()
 
 		if msg == "START":
 			self.log.info(msg)
@@ -106,6 +104,8 @@ class Test_case(object):
 		if msg == "STOP":
 			self.log.info(msg)
 			TEST_RUN_STATE = False
+
+		self.dict_run_time[msg] = time
 		return
 
 	def process_mqtt_gps_data(self, msg):
@@ -113,10 +113,12 @@ class Test_case(object):
 
 		if TEST_RUN_STATE == True:
 			self.log.info(msg[0] + " " + msg[2])
+			
 			if float(msg[0]) > 1.1 and float(msg[2]) > 1.1:
 				self.log.info(msg)
 				time = datetime.now()
 				self.dict_gps_coords[time] = str(msg[0]) + ":" + str(msg[2])
+				
 				if len(self.dict_gps_coords) > 10:
 					self.log.info("Gotovo")
 					self.do_cleanup()
@@ -190,6 +192,8 @@ class Test_case(object):
 
 	def do_cleanup(self):
 		self.log.info("Test over, cleaning up")
+		for key, value in dict_run_time:
+			print (key, value)
 		exit()
 
 	def start_test(self):
