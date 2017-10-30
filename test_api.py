@@ -173,7 +173,7 @@ class Test_case(object):
 		with open(self.report_file, 'a') as f:
 			f.write(self.timestamp_begin.strftime('%d.%m.%Y %H:%M:%S')
 			 + " : " + self.timestamp_end.strftime('%d.%m.%Y %H:%M:%S') + 
-			 "diff=" + (self.timestamp_end-self.timestamp_begin).strftime('%d.%m.%Y %H:%M:%S')
+			 " diff=" + (self.timestamp_end-self.timestamp_begin).strftime('%d.%m.%Y %H:%M:%S')
 			 +  "\n")
 		self.dict_gps_coords.clear()
 		self.test_run_state = False
@@ -185,7 +185,7 @@ class Test_case(object):
 
 		self.timestamp_begin = datetime.now()
 		self.dict_run_times[self.test_run_state] = self.timestamp_begin
-		self.log.info("Test started with time: " + self.timestamp_begin).strftime('%d.%m.%Y %H:%M:%S')
+		self.log.info("Test started with time: " + self.timestamp_begin.strftime('%d.%m.%Y %H:%M:%S'))
 
 		while self.test_run_state != False:
 			time.sleep(10)
