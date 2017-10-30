@@ -38,11 +38,14 @@ class Test_case(object):
 		self.include_reboot = test_dict[self.test_name]['reboot']
 
 		#Report file 
+		self.report_file = self.test_name + ".txt"
 		self.test_run_state = False
 		# Dict containing GPS data 
 		self.dict_gps_coords = {}
 		# Dict containing test starting and ending time
 		self.dict_run_times = {}
+		self.timestamp_begin = ""
+		self.timestamp_end = ""
 
 		self.mount_partition_as_rw()
 		if self.first_time_running():
@@ -167,8 +170,10 @@ class Test_case(object):
 
 	def do_cleanup(self):
 		self.log.info("Test over, cleaning up")
-		print (self.dict_run_times)
-		exit()
+		with open(self.report_file, 'a') as f:
+			f.write(self.timestamp_end + " : " + self.timestamp_end)
+		self.test_run_state = False
+		#exit()
 
 	def start_test(self):
 		self.log.info("Starting test")
