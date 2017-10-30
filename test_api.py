@@ -94,7 +94,7 @@ class Test_case(object):
 			if float(msg[0]) > 0.15 and float(msg[2]) > 0.15:
 				self.dict_gps_coords[time] = str(msg[0]) + ":" + str(msg[2])
 				
-				if len(self.dict_gps_coords) > 300:
+				if len(self.dict_gps_coords) > 100:
 					self.end_test()
 
 
@@ -167,13 +167,16 @@ class Test_case(object):
 	def do_cleanup(self):
 		self.log.info("Test over, cleaning up")
 		with open(self.report_file, 'a') as f:
-			"""
-			f.write(self.timestamp_begin.strftime('%d.%m.%Y %H:%M:%S')
-			 + " : " + self.timestamp_end.strftime('%d.%m.%Y %H:%M:%S') + 
-			 " diff=" + str((self.timestamp_end-self.timestamp_begin).total_seconds()) +  "\n")
-			 """
-			for key, value in self.dict_gps_coords.items():
-				f.write(str(key) + ": " + str(value))
+			
+			if self.test_name == "MODT-1.2.1":
+				f.write(self.timestamp_begin.strftime('%d.%m.%Y %H:%M:%S')
+			 	+ " : " + self.timestamp_end.strftime('%d.%m.%Y %H:%M:%S') + 
+			 	" diff=" + str((self.timestamp_end-self.timestamp_begin).total_seconds()) +  "\n")
+			
+			if self.test_name == "MODT-1.2.2":
+				for key, value in self.dict_gps_coords.items():
+					f.write(str(key) + ": " + str(value) + '\n')
+
 		print (self.dict_gps_coords)
 		self.dict_gps_coords.clear()
 		self.test_run_state = False
