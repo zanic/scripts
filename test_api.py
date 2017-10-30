@@ -78,7 +78,8 @@ class Test_case(object):
 		return
 	
 	def mqtt_subscribe(self, client):
-		client.subscribe("smartcity/data/0/GPS/+")    
+		if self.dut == 'gps':
+			client.subscribe("smartcity/data/0/GPS/+")    
 		return
 
 	def process_mqtt_message(self, msg):
@@ -88,17 +89,12 @@ class Test_case(object):
 			self.process_mqtt_gps_data(msg)
 
 	def process_mqtt_gps_data(self, msg):
-
+		time = datetime.now()
 		if self.test_run_state == True:
-			self.log.info(msg[0] + " " + msg[2])
-			
-			if float(msg[0]) > 1.1 and float(msg[2]) > 1.1:
-				self.log.info(msg)
-				time = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
+			if float(msg[0]) > 0.15 and float(msg[2]) > 0.15:
 				self.dict_gps_coords[time] = str(msg[0]) + ":" + str(msg[2])
 				
-				if len(self.dict_gps_coords) > 3:
-					self.log.info("Gotovo")
+				if len(self.dict_gps_coords) > 300:
 					self.end_test()
 
 
@@ -174,6 +170,7 @@ class Test_case(object):
 			f.write(self.timestamp_begin.strftime('%d.%m.%Y %H:%M:%S')
 			 + " : " + self.timestamp_end.strftime('%d.%m.%Y %H:%M:%S') + 
 			 " diff=" + str((self.timestamp_end-self.timestamp_begin).total_seconds()) +  "\n")
+		print (self.dict_gps_coords)
 		self.dict_gps_coords.clear()
 		self.test_run_state = False
 		#exit()
