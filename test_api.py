@@ -192,8 +192,7 @@ class Test_case(object):
 
 	def do_cleanup(self):
 		self.log.info("Test over, cleaning up")
-		for key, value in self.dict_run_time:
-			print (key, value)
+		print (self.dict_run_time)
 		exit()
 
 	def start_test(self):
