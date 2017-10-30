@@ -99,7 +99,7 @@ class Test_case(object):
 		time = datetime.now()
 
 		if msg == "START":
-			self.log.info("Starting test with")
+			self.log.info(msg)
 			TEST_RUN_STATE = True
 		if msg == "STOP":
 			self.log.info(msg)
