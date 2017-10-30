@@ -212,6 +212,7 @@ class Test_case(object):
 		topic = "testing"
 		status = "STOP"
 		timestamp_end = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
+		self.log.info("Test ended with time: " + timestamp_end)
 		self.dict_run_times[status] = timestamp_end
 		self.do_cleanup()
 
