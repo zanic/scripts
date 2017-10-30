@@ -171,7 +171,7 @@ class Test_case(object):
 	def do_cleanup(self):
 		self.log.info("Test over, cleaning up")
 		with open(self.report_file, 'a') as f:
-			f.write(self.timestamp_end + " : " + self.timestamp_end)
+			f.write(self.timestamp_begin + " : " + self.timestamp_end)
 		self.dict_gps_coords.clear()
 		self.test_run_state = False
 		#exit()
@@ -181,8 +181,8 @@ class Test_case(object):
 		self.test_run_state = True
 
 		timestamp_begin = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
-		self.dict_run_times[self.test_run_state] = timestamp_begin
-		self.log.info("Test started with time: " + timestamp_begin)
+		self.dict_run_times[self.test_run_state] = self.timestamp_begin
+		self.log.info("Test started with time: " + self.timestamp_begin)
 
 		while self.test_run_state != False:
 			time.sleep(10)
@@ -191,9 +191,9 @@ class Test_case(object):
 	def end_test(self):
 		self.log.info("Stoping test")
 		self.test_run_state = False
-		timestamp_end = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
-		self.log.info("Test ended with time: " + timestamp_end)
-		self.dict_run_times[self.test_run_state] = timestamp_end
+		self.timestamp_end = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
+		self.log.info("Test ended with time: " + self.timestamp_end)
+		self.dict_run_times[self.test_run_state] = self.timestamp_end
 		self.do_cleanup()
 
 
