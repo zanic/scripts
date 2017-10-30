@@ -22,7 +22,7 @@ class Test_case(object):
 	mbmb_reset_pin  =13
 	mbmb_hard_power_pin = 15
 
-	global TEST_RUN_STATE, TEST_RUN_STATE_TIME
+	global TEST_RUN_STATE
 	TEST_RUN_STATE = False
 
 	GPIO.setwarnings(False)
@@ -77,36 +77,13 @@ class Test_case(object):
 	
 	def mqtt_subscribe(self, client):
 		client.subscribe("smartcity/data/0/GPS/+")    
-		client.subscribe("testing")
 		return
 
 	def process_mqtt_message(self, msg):
-
-		match = re.search("testing", msg.topic)
-		if match:
-			msg_payload = (msg.payload.decode('utf-8').split(','))[0]
-			self.process_mqtt_test_status(msg_payload)
-			
 		match = re.search("smartcity/data/0/GPS", msg.topic)
 		if match:
 			msg = (msg.payload.decode('utf-8').split(','))
 			self.process_mqtt_gps_data(msg)
-
-			self.log.info(msg[0] + " " + msg[2])
-
-	def process_mqtt_test_status(self, msg):
-		global TEST_RUN_STATE
-		time = datetime.now()
-
-		if msg == "START":
-			self.log.info(msg)
-			TEST_RUN_STATE = True
-		if msg == "STOP":
-			self.log.info(msg)
-			TEST_RUN_STATE = False
-
-		self.dict_run_times[msg] = time
-		return
 
 	def process_mqtt_gps_data(self, msg):
 		global TEST_RUN_STATE
@@ -200,17 +177,13 @@ class Test_case(object):
 		global TEST_RUN_STATE
 		TEST_RUN_STATE = True
 
-		topic = "testing"
-		status = "START"
 		timestamp_begin = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
 		self.dict_run_times[status] = timestamp_begin
 		self.log.info("Test started with time: " + timestamp_begin)
-		#self.mqtt.publish(topic, status, 1, 1)
 
 	def end_test(self):
 		self.log.info("Stoping test")
-		topic = "testing"
-		status = "STOP"
+		
 		timestamp_end = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
 		self.log.info("Test ended with time: " + timestamp_end)
 		self.dict_run_times[status] = timestamp_end
