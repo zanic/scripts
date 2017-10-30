@@ -43,7 +43,7 @@ class Test_case(object):
 		# Dict containing GPS data 
 		self.dict_gps_coords = {}
 		# Dict containing test starting and ending time
-		self.dict_run_time = {}
+		self.dict_run_times = {}
 
 		self.mount_partition_as_rw()
 		if self.first_time_running():
@@ -99,29 +99,29 @@ class Test_case(object):
 		time = datetime.now()
 
 		if msg == "START":
-			self.log.info(msg)
+			self.log.info("Starting test with")
 			TEST_RUN_STATE = True
 		if msg == "STOP":
 			self.log.info(msg)
 			TEST_RUN_STATE = False
 
-		self.dict_run_time[msg] = time
+		self.dict_run_times[msg] = time
 		return
 
 	def process_mqtt_gps_data(self, msg):
 		global TEST_RUN_STATE
 
 		if TEST_RUN_STATE == True:
-			self.log.info(msg[0] + " " + msg[2])
+			#self.log.info(msg[0] + " " + msg[2])
 			
 			if float(msg[0]) > 1.1 and float(msg[2]) > 1.1:
 				self.log.info(msg)
-				time = datetime.now()
-				self.dict_gps_coords[time] = str(msg[0]) + ":" + str(msg[2])
+				timestamp_begin = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
+				self.dict_gps_coords[timestamp_begin] = str(msg[0]) + ":" + str(msg[2])
 				
 				if len(self.dict_gps_coords) > 10:
 					self.log.info("Gotovo")
-					self.do_cleanup()
+					self.end_test()
 
 
 	def run_shell_process(self, cmd):
@@ -192,17 +192,28 @@ class Test_case(object):
 
 	def do_cleanup(self):
 		self.log.info("Test over, cleaning up")
-		print (self.dict_run_time)
+		print (self.dict_run_times)
 		exit()
 
 	def start_test(self):
-		global TEST_RUN_STATE_TIME
-
 		self.log.info("Starting test")
+		global TEST_RUN_STATE
+		TEST_RUN_STATE = True
+
 		topic = "testing"
 		status = "START"
-		TEST_RUN_STATE_TIME = datetime.now()
-		self.mqtt.publish(topic, status, 1, 1)
+		timestamp_begin = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
+		self.dict_run_times[status] = timestamp_begin
+		#self.mqtt.publish(topic, status, 1, 1)
+
+	def end_test(self):
+		self.log.info("Stoping test")
+		topic = "testing"
+		status = "STOP"
+		timestamp_end = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
+		self.dict_run_times[status] = timestamp_end
+		self.do_cleanup()
+
 
 class Modem(Test_case):
 
