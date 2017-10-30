@@ -172,6 +172,7 @@ class Test_case(object):
 		self.log.info("Test over, cleaning up")
 		with open(self.report_file, 'a') as f:
 			f.write(self.timestamp_end + " : " + self.timestamp_end)
+		self.dict_gps_coords.clear()
 		self.test_run_state = False
 		#exit()
 
