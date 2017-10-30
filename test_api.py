@@ -40,6 +40,9 @@ class Test_case(object):
 		self.nmag = test_dict[self.name]['nmag']
 		self.include_reboot = test_dict[self.name]['reboot']
 
+		# Dict containing GPS data 
+		self.dict_gps_coords = {}
+
 		self.mount_partition_as_rw()
 		if self.first_time_running():
 			self.make_backups()
@@ -112,6 +115,12 @@ class Test_case(object):
 			self.log.info(msg[0] + " " + msg[2])
 			if float(msg[0]) > 1.1 and float(msg[2]) > 1.1:
 				self.log.info(msg)
+				time = datetime.now()
+				self.dict_gps_coords[time] = str(msg[0]) + ":" + str(msg[2])
+				if len(dict) > 10:
+					self.log.info("Gotovo")
+					self.do_cleanup()
+
 
 	def run_shell_process(self, cmd):
 		try:
