@@ -194,7 +194,7 @@ class Test_case(object):
 	def end_test(self):
 		self.log.info("Stoping test")
 		self.test_run_state = False
-		self.timestamp_end = datetime.now().
+		self.timestamp_end = datetime.now()
 		self.log.info("Test ended with time: " + self.timestamp_end)
 		self.dict_run_times[self.test_run_state] = self.timestamp_end
 		self.do_cleanup()
