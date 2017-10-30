@@ -14,7 +14,7 @@ class Test_case(object):
 	net_config = "/etc/network/interfaces"
 	appdef = "/home/pi/SmartSense/appdef"
 	appdef_test_line = "testcase:/home/pi/scripts/:./test.py::root:no\n"
-	backup_dir = "/home/pi/backup_dir/"
+	backup_dir = "backup_dir/"
 	mqtt_broker = "localhost"
 	mqtt_broker_port = 1883
 
@@ -37,6 +37,7 @@ class Test_case(object):
 		self.nmag = test_dict[self.test_name]['nmag']
 		self.include_reboot = test_dict[self.test_name]['reboot']
 
+		#Report file 
 		self.test_run_state = False
 		# Dict containing GPS data 
 		self.dict_gps_coords = {}
@@ -176,6 +177,10 @@ class Test_case(object):
 		timestamp_begin = datetime.now().strftime('%d.%m.%Y %H:%M:%S')
 		self.dict_run_times[self.test_run_state] = timestamp_begin
 		self.log.info("Test started with time: " + timestamp_begin)
+
+		while self.test_run_state != False:
+			time.sleep(10)
+		return 
 
 	def end_test(self):
 		self.log.info("Stoping test")
