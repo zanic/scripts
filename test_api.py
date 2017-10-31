@@ -181,7 +181,7 @@ class Test_case(object):
 			if self.test_name == "MODT-1.2.2":
 				for key, value in self.dict_gps_coords.items():
 					f.write(str(key) + ": " + str(value) + '\n')
-				self.calc_diff()
+				#self.calc_diff()
 
 		self.dict_gps_coords.clear()
 		self.test_run_state = False
