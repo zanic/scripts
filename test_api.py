@@ -89,10 +89,9 @@ class Test_case(object):
 			self.process_mqtt_gps_data(msg)
 
 	def process_mqtt_gps_data(self, msg):
-		time = datetime.now()
 		if self.test_run_state == True:
 			if float(msg[0]) > 0.15 and float(msg[2]) > 0.15:
-				self.dict_gps_coords[time] = str(msg[0]) + ":" + str(msg[2])
+				self.dict_gps_coords[datetime.now()] = str(msg[0]) + ":" + str(msg[2])
 				
 				if len(self.dict_gps_coords) > 100:
 					self.end_test()
@@ -163,6 +162,12 @@ class Test_case(object):
 				self.log.info("Modem could not be returned, exit")
 				self.do_cleanup()
 
+	def calc_diff(self):
+		with open(self.report_file, 'w') as f:
+			for line in f.readlines():
+				split = line.split()
+
+
 
 	def do_cleanup(self):
 		self.log.info("Test over, cleaning up")
@@ -176,8 +181,8 @@ class Test_case(object):
 			if self.test_name == "MODT-1.2.2":
 				for key, value in self.dict_gps_coords.items():
 					f.write(str(key) + ": " + str(value) + '\n')
+				self.calc_diff()
 
-		print (self.dict_gps_coords)
 		self.dict_gps_coords.clear()
 		self.test_run_state = False
 		#exit()
