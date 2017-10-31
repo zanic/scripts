@@ -5,6 +5,7 @@ from datetime import datetime
 import RPi.GPIO as GPIO
 import paho.mqtt.client as mqtt
 from dict_base import test_dict
+from collections import OrderedDict
 
 
 class Test_case(object):
@@ -41,7 +42,7 @@ class Test_case(object):
 		self.report_file = self.test_name + ".txt"
 		self.test_run_state = False
 		# Dict containing GPS data 
-		self.dict_gps_coords = {}
+		self.dict_gps_coords = OrderedDict()
 		# Dict containing test starting and ending time
 		self.dict_run_times = {}
 		self.timestamp_begin = ""
