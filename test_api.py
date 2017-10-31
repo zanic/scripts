@@ -4,7 +4,7 @@ import sys, re, logging, time, subprocess, os, fileinput
 from datetime import datetime
 import RPi.GPIO as GPIO
 import paho.mqtt.client as mqtt
-from dict_base import test_dict
+from test_descr import test_dict
 from collections import OrderedDict
 
 
@@ -266,7 +266,7 @@ class Modem(Test_case):
 		GPIO.output(self.mbmb_hard_power_pin, False)
 		return
 	
-	def power_on(self):
+	def power_on(self): 
 		self.log.info("Powering on modem")
 		GPIO.output(self.mbmb_hard_power_pin, True)
 		time.sleep(1)
