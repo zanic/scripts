@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import sys, re, logging, time, subprocess, os, fileinput, serial
+import sys, re, logging, time, subprocess, os, fileinput, serial, threading
 from datetime import datetime
 import RPi.GPIO as GPIO
 import paho.mqtt.client as mqtt
@@ -45,8 +45,6 @@ class Test_case(object):
 		self.dict_gps_coords = OrderedDict()
 		# Dict containing test starting and ending time
 		self.dict_run_times = {}
-		self.timestamp_begin = ""
-		self.timestamp_end = ""
 
 		self.mount_partition_as_rw()
 		if self.first_time_running():
@@ -177,7 +175,7 @@ class Test_case(object):
 			if self.test_name == "MODT-1.2.1":
 				f.write(self.timestamp_begin.strftime('%d.%m.%Y %H:%M:%S')
 			 	+ " : " + self.timestamp_end.strftime('%d.%m.%Y %H:%M:%S') + 
-			 	" diff=" + str(((self.timestamp_end-self.timestamp_begin).total_seconds())) +  "\n")
+			 	" diff=" + str((self.timestamp_end-self.timestamp_begin).total_seconds()) +  "\n")
 			
 			if self.test_name == "MODT-1.2.2":
 				for key, value in self.dict_gps_coords.items():
@@ -226,6 +224,8 @@ class Modem(Test_case):
 			self.port = port
 			self.baudrate = baudrate
 			self.timeout = 1
+			self.tx_Lock = threading.RLock()
+			self.alive = False
 		else:
 			pass
 
@@ -233,10 +233,20 @@ class Modem(Test_case):
 		try:
 			self.serial = serial.Serial(port=self.port, baudrate=self.baudrate,
 			 timeout=self.timeout)
+			self.alive = True
+			self.rxThread = threading.Thread(target=self.readloop)
+			self.rxThread.daemon = True
+			self.rxThread.start()
 		except Exception as e:
 			self.log.err("Error opening serial with: %r" % (e))
 
-	def write(self):
+	def close(self):
+		self.alive = False
+		self.rxThread.join()
+		self.serial.close()
+
+	def handleLineRead(self, line, checkForResponseTerm=True):
+		if self.response_event = 
 		pass
 
 
@@ -306,4 +316,3 @@ class Modem(Test_case):
 
 	def check_modem_exists(self):
 		return os.path.exists("/dev/gsmmodem")
-
