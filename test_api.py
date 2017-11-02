@@ -209,7 +209,7 @@ class Test_case(object):
 
 
 #class Modem(Test_case):
-class Modem():
+class Modem(object):
 	mbmb_power_pin = 11
 	mbmb_reset_pin  =13
 	mbmb_hard_power_pin = 15
