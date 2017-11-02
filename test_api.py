@@ -231,7 +231,7 @@ class Modem(Test_case):
 
 	def connect(self):
 		try:
-			self.serial = serial.Serial(port=self.port, baudrate=self.baudrate,
+			self.serial = serial.Serial(port=self.port, baudrate=self.baudrate, 
 				self.timeout)
 		except Exception as e:
 			self.log.err("Error opening serial with: %r" % (e))
