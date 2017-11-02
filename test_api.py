@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import sys, re, logging, time, subprocess, os, fileinput
+import sys, re, logging, time, subprocess, os, fileinput, serial
 from datetime import datetime
 import RPi.GPIO as GPIO
 import paho.mqtt.client as mqtt
@@ -221,8 +221,25 @@ class Modem(Test_case):
 	GPIO.setup(mbmb_power_pin, GPIO.OUT)
 	GPIO.setup(mbmb_hard_power_pin, GPIO.OUT)
 
-	def __init__(self):
+	def __init__(self, **kwargs):
+		if len(kwargs) > 0:
+			self.port = port
+			self.baudrate = baudrate
+			self.timeout = 1
+		else:
+			pass
+
+	def connect(self):
+		try:
+			self.serial = serial.Serial(port=self.port, baudrate=self.baudrate,
+				self.timeout)
+		except Exception as e:
+			self.log.err("Error opening serial with: %r" % (e))
+
+	def write(self):
 		pass
+
+
 
 	def restart(self):
 		self.log.info("Restarting modem")
