@@ -243,7 +243,7 @@ class Modem(Test_case):
 	def check_modem_return(self):
 		self.log.info("Checking has modem returned")
 		sleep_time = 2
-		time_left = 30
+		time_left = 60
 		while time_left - sleep_time > 0:
 			if self.check_modem_exists():
 				self.log.info("Modem is back")
