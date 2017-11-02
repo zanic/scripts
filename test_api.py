@@ -246,7 +246,7 @@ class Modem(Test_case):
 		self.serial.close()
 
 	def handleLineRead(self, line, checkForResponseTerm=True):
-		if self.response_event = 
+		#if self.response_event = 
 		pass
 
 
