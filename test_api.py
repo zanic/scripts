@@ -175,7 +175,8 @@ class Test_case(object):
 			if self.test_name == "MODT-1.2.1":
 				f.write(self.timestamp_begin.strftime('%d.%m.%Y %H:%M:%S')
 			 	+ " : " + self.timestamp_end.strftime('%d.%m.%Y %H:%M:%S') + 
-			 	" diff=" + str((self.timestamp_end-self.timestamp_begin).total_seconds()) +  "\n")
+			 	" diff=" + str((self.timestamp_end-self.timestamp_begin).total_seconds()) +
+			 	" seconds" + "\n")
 			
 			if self.test_name == "MODT-1.2.2":
 				for key, value in self.dict_gps_coords.items():
@@ -207,8 +208,8 @@ class Test_case(object):
 		self.do_cleanup()
 
 
-class Modem(Test_case):
-
+#class Modem(Test_case):
+class Modem():
 	mbmb_power_pin = 11
 	mbmb_reset_pin  =13
 	mbmb_hard_power_pin = 15
