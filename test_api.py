@@ -224,8 +224,11 @@ class Modem(Test_case):
 			self.port = port
 			self.baudrate = baudrate
 			self.timeout = 1
-			self.tx_Lock = threading.RLock()
 			self.alive = False
+			self.response_event = None
+			self.reponse = None
+			self.notification = []
+			self.tx_Lock = threading.RLock()
 		else:
 			pass
 
@@ -245,9 +248,55 @@ class Modem(Test_case):
 		self.rxThread.join()
 		self.serial.close()
 
-	def handleLineRead(self, line, checkForResponseTerm=True):
-		#if self.response_event = 
-		pass
+	def handle_line_read(self, line, checkForResponseTerm=True):
+		if self.response_event and not self.response_event.is_set():
+			self.response.append(line)
+			if not checkForResponseTerm or self.RESPONSE_TERM.match(line):
+				self.log.debug('reponse: %s', self.response)
+				self.response_event.set()
+		else:
+			self.notification.append(line)
+			if self.serial.inWaiting() == 0:
+				self.notifyCallback(self.notification)
+				self.notification = []
+
+	def read_loop(self):
+		try:
+			read_term_seq = list(self.RX_EOL_SEQ)
+			read_term_len = len(read_term_seq)
+			rxBuffer = []
+			while self.alive:
+				data = self.serial.read(1)
+				if data != '':
+					rxBuffer.append(data)
+					if rxBuffer[-read_term_len:] == read_term_seq:
+						line = ''.join(rxBuffer)
+						rxBuffer = []
+						self.handle_line_read(line, checkForResponseTerm=False)
+		except serial.SerialException as e:
+			self.alive = False
+			try:
+				self.serial.close()
+			except Exception as err:
+				self.log_err("Fatal Error %r" % (err))
+
+	def write(self, data, waitForResponse=True, timeout=5):
+		while self.tx_Lock:
+			if waitForResponse:
+				self.response = []
+				self.response_event = threading.Event()
+				self.serial.write(data)
+				if self.response_event.wait(timeout):
+					self.response_event = None
+					return self.response
+				else:
+					self.response_event = None
+					if len(self.response) > 0:
+						self.log.err("Timeout error,  reponse is: %s" % (self.response))
+
+			else:
+				self.serial.write(data)
+
 
 
 
