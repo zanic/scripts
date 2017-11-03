@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import os, sys, time, subprocess, shlex, logging
+import os, sys, time, logging, re
 from datetime import datetime
 from collections import OrderedDict
 import RPi.GPIO as GPIO
