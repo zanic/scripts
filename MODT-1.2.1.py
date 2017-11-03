@@ -160,4 +160,6 @@ if __name__ == "__main__":
 	while i < 10:
 		if not restart_modem():
 			break
-		start_test()
+		else:
+			start_test()
+		i = i + 1
