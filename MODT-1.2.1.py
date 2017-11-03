@@ -50,6 +50,39 @@ def modem_reset():
 	GPIO.output(mbmb_reset_pin, True)
 	return
 
+def restart_modem():
+	log.info("Restarting modem")
+	if check_modem_exists():
+		log.info("/dev/gsmmodem exists")
+	else:
+		log.info("/dev/gsmmodem does not exist, try getting it back")
+	modem_power_off()
+	time.sleep(5)
+	modem_power_on()
+	time.sleep(5)
+	modem_reset()
+	if check_modem_return():
+		return True
+	else:
+		return False
+
+def check_modem_return():
+	log.info("Checking has modem returned")
+	sleep_time = 2
+	time_left = 60
+	while time_left - sleep_time > 0:
+		if check_modem_exists():
+			log.info("Modem is back")
+			return True
+		else:
+			time.sleep(sleep_time)
+			time_left = time_left - sleep_time
+	log.info("Modem has not returned")
+	return False
+
+def check_modem_exists():
+	return os.path.exists("/dev/gsmmodem")
+
 def on_connect(client, userdata, rc):
     mqtt_subscribe(client)
 
@@ -121,4 +154,9 @@ if __name__ == "__main__":
 	mqttc.connect(broker_address, port=broker_port, keepalive=60)
 
 	mqttc.loop_start()
-	start_test()
+	i = 0
+	while i < 10:
+		test_run_state = False
+		if restart_modem():
+			start_test()
+			test_run_state = True
