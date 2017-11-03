@@ -8,7 +8,8 @@ import paho.mqtt.client as mqtt
 
 report_file = 'MODT-1.2.1.txt'
 log_file = 'MODT-1.2.1.log'
-logging.basicConfig(filename=log_file, level=logging.DEBUG)
+#logging.basicConfig(filename=log_file, level=logging.DEBUG)
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 log = logging.getLogger('Tester')
 
 mbmb_power_pin = 11
@@ -157,7 +158,6 @@ if __name__ == "__main__":
 	mqttc.loop_start()
 	i = 0
 	while i < 10:
-		test_run_state = False
 		if not restart_modem():
 			break
 		start_test()
