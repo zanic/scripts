@@ -16,9 +16,11 @@ mbmb_reset_pin  =13
 mbmb_hard_power_pin = 15
 
 coord_dict = OrderedDict()
+dict_run_times = {}
 
 timestamp_begin = datetime.now()
 timestamp_end = datetime.now()
+test_run_state = False
 
 def modem_power_off():
 	GPIO.output(mbmb_power_pin, False)
