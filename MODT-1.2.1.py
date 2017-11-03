@@ -21,7 +21,7 @@ dict_run_times = {}
 
 timestamp_begin = datetime.now()
 timestamp_end = datetime.now()
-test_run_state = False
+global test_run_state
 
 def modem_power_off():
 	GPIO.output(mbmb_power_pin, False)
@@ -110,6 +110,8 @@ def process_mqtt_gps_data(msg):
 			end_test()
 
 def start_test():
+	global test_run_state
+	test_run_state = True
 	log.info("Starting test")
 	timestamp_begin = datetime.now()
 	dict_run_times[test_run_state] = timestamp_begin
@@ -120,6 +122,7 @@ def start_test():
 
 def end_test():
 	log.info("Stoping test")
+	global test_run_state
 	test_run_state = False
 	coord_dict.clear()
 	timestamp_end = datetime.now()
@@ -133,7 +136,6 @@ def make_report():
 			+ " : " + timestamp_end.strftime('%d.%m.%Y %H:%M:%S') + 
 			" diff=" + str((timestamp_end-timestamp_begin).total_seconds()) +
 			" seconds" + "\n")
-	test_run_state = False
 	return
 
 
@@ -163,7 +165,6 @@ if __name__ == "__main__":
 		if not restart_modem():
 			break
 		else:
-			test_run_state = True
 			start_test()
 			print (i)
 		i = i + 1
