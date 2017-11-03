@@ -5,6 +5,7 @@ from datetime import datetime
 from collections import OrderedDict
 
 
+log_file = 'MODT-1.2.1.txt'
 logging.basicConfig(filename=log_file, level=logging.DEBUG)
 log = logging.getLogger('Tester')
 
