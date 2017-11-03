@@ -162,4 +162,5 @@ if __name__ == "__main__":
 			break
 		else:
 			start_test()
+			print (i)
 		i = i + 1
