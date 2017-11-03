@@ -4,6 +4,7 @@ import os, sys, time, subprocess, shlex, logging
 from datetime import datetime
 from collections import OrderedDict
 import RPi.GPIO as GPIO
+import paho.mqtt.client as mqtt
 
 
 log_file = 'MODT-1.2.1.txt'
