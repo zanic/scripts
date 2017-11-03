@@ -111,7 +111,6 @@ def process_mqtt_gps_data(msg):
 
 def start_test():
 	log.info("Starting test")
-	test_run_state = True
 	timestamp_begin = datetime.now()
 	dict_run_times[test_run_state] = timestamp_begin
 	log.info("Test started with time: " + timestamp_begin.strftime('%d.%m.%Y %H:%M:%S'))
@@ -164,6 +163,7 @@ if __name__ == "__main__":
 		if not restart_modem():
 			break
 		else:
+			test_run_state = True
 			start_test()
 			print (i)
 		i = i + 1
