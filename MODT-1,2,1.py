@@ -45,15 +45,6 @@ def modem_reset():
 	GPIO.output(mbmb_reset_pin, True)
 	return
 
-def run_shell_process(cmd):
-	try:
-		output = subprocess.check_output(
-			cmd, shell=True, stderr=subprocess.STDOUT)
-	except Exception as err:
-		print("cmd %s FAILED %r" % (cmd, err))
-		return str(err)
-	return output.decode(encoding="utf-8", errors="ignore").rstrip()
-
 def on_connect(client, userdata, rc):
     mqtt_subscribe(client)
 
