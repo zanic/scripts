@@ -134,6 +134,9 @@ def make_report():
 			+ " : " + timestamp_end.strftime('%d.%m.%Y %H:%M:%S') + 
 			" diff=" + str((timestamp_end-timestamp_begin).total_seconds()) +
 			" seconds" + "\n")
+	test_run_state = False
+	return
+
 
 if __name__ == "__main__":
 
