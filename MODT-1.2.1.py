@@ -3,6 +3,7 @@
 import os, sys, time, subprocess, shlex, logging
 from datetime import datetime
 from collections import OrderedDict
+import RPi.GPIO as GPIO
 
 
 log_file = 'MODT-1.2.1.txt'
