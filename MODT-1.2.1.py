@@ -158,5 +158,6 @@ if __name__ == "__main__":
 	i = 0
 	while i < 10:
 		test_run_state = False
-		if restart_modem():
-			start_test()
+		if not restart_modem():
+			break
+		start_test()
