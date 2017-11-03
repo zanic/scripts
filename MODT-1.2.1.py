@@ -167,5 +167,6 @@ if __name__ == "__main__":
 			log.info("Modem has not returned")
 			break
 		timestamp_begin = datetime.now()
+		log.info("Test started with time: " + timestamp_begin.strftime('%d.%m.%Y %H:%M:%S'))
 		while test_run_state != False:
 			time.sleep(10000)
