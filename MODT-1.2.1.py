@@ -127,7 +127,6 @@ def end_test():
 	coord_dict.clear()
 	timestamp_end = datetime.now()
 	log.info("Test ended with time: " + timestamp_end.strftime('%d.%m.%Y %H:%M:%S'))
-	make_report()
 
 def make_report():
 	log.info("Making report")
@@ -172,3 +171,4 @@ if __name__ == "__main__":
 		log.info("Test started with time: " + timestamp_begin.strftime('%d.%m.%Y %H:%M:%S'))
 		while test_run_state != False:
 			time.sleep(10000)
+		make_report()
