@@ -105,7 +105,7 @@ def process_mqtt_message(msg):
 def process_mqtt_gps_data(msg):
 	if float(msg[0]) > 0.15 and float(msg[2]) > 0.15:
 		coord_dict[datetime.now()] = str(msg[0]) + ":" + str(msg[2])
-		if len(coord_dict) > 100:
+		if len(coord_dict) > 3:
 			end_test()
 
 def start_test():
@@ -121,6 +121,7 @@ def start_test():
 def end_test():
 	log.info("Stoping test")
 	test_run_state = False
+	coord_dict.clear()
 	timestamp_end = datetime.now()
 	log.info("Test ended with time: " + timestamp_end.strftime('%d.%m.%Y %H:%M:%S'))
 	make_report()
@@ -159,4 +160,3 @@ if __name__ == "__main__":
 		test_run_state = False
 		if restart_modem():
 			start_test()
-			test_run_state = True
