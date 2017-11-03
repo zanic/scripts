@@ -6,8 +6,8 @@ from collections import OrderedDict
 import RPi.GPIO as GPIO
 import paho.mqtt.client as mqtt
 
-
-log_file = 'MODT-1.2.1.txt'
+report_file = 'MODT-1.2.1.txt'
+log_file = 'MODT-1.2.1.log'
 logging.basicConfig(filename=log_file, level=logging.DEBUG)
 log = logging.getLogger('Tester')
 
