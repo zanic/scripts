@@ -7,7 +7,7 @@ import RPi.GPIO as GPIO
 import paho.mqtt.client as mqtt
 
 report_file = 'MODT-1.2.1.txt'
-log_file = 'MODT-1.2.1.log'
+log_file = 'test.log'
 #logging.basicConfig(filename=log_file, level=logging.DEBUG)
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 log = logging.getLogger('Tester')
@@ -160,11 +160,12 @@ if __name__ == "__main__":
 	mqttc.connect(broker_address, port=broker_port, keepalive=60)
 
 	mqttc.loop_start()
+
 	i = 0
 	while i < 10:
 		if not restart_modem():
+			log.info("Modem has not returned")
 			break
-		else:
-			start_test()
-			print (i)
-		i = i + 1
+		timestamp_begin = datetime.now()
+		while test_run_state != False:
+			time.sleep(10000)
