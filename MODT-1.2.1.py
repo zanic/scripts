@@ -142,7 +142,7 @@ def make_report():
 if __name__ == "__main__":
 
 	global test_run_state
-	
+	test_run_state = True
 	GPIO.setwarnings(False)
 	GPIO.setmode(GPIO.BOARD)
 	GPIO.setup(mbmb_reset_pin, GPIO.OUT)
