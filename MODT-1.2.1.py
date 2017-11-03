@@ -2,7 +2,7 @@
 
 import os, sys, time, subprocess, shlex, logging
 from datetime import datetime
-from collection import OrderedDict
+from collections import OrderedDict
 
 
 logging.basicConfig(filename=log_file, level=logging.DEBUG)
