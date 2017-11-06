@@ -110,7 +110,8 @@ def process_mqtt_gps_data(msg):
 			end_test()
 
 def start_test():
-	global test_run_state timestamp_begin
+	global test_run_state
+	global timestamp_begin
 	test_run_state = True
 	log.info("Starting test")
 	timestamp_begin = datetime.now()
@@ -122,7 +123,8 @@ def start_test():
 
 def end_test():
 	log.info("Stoping test")
-	global test_run_state timestamp_end
+	global test_run_state
+	global timestamp_end
 	test_run_state = False
 	coord_dict.clear()
 	timestamp_end = datetime.now()
@@ -130,7 +132,8 @@ def end_test():
 	make_report()
 
 def make_report():
-	global timestamp_begin timestamp_end
+	global timestamp_begin
+	global timestamp_end
 	log.info("Making report")
 	with open(report_file, 'a') as f:
 		f.write(timestamp_begin.strftime('%d.%m.%Y %H:%M:%S')
