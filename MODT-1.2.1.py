@@ -117,7 +117,7 @@ def start_test():
 	dict_run_times[test_run_state] = timestamp_begin
 	log.info("Test started with time: " + timestamp_begin.strftime('%d.%m.%Y %H:%M:%S'))
 	while test_run_state != False:
-		time.sleep(10)
+		time.sleep(0.1)
 	return 
 
 def end_test():
@@ -165,10 +165,6 @@ if __name__ == "__main__":
 	i = 0
 	while i < 10:
 		if not restart_modem():
-			log.info("Modem has not returned")
 			break
-		timestamp_begin = datetime.now()
-		log.info("Test started with time: " + timestamp_begin.strftime('%d.%m.%Y %H:%M:%S'))
-		while test_run_state != False:
-			time.sleep(10000)
-		make_report()
+		start_test()
+		i = i + 1
