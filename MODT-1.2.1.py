@@ -18,7 +18,8 @@ mbmb_hard_power_pin = 15
 
 coord_dict = OrderedDict()
 dict_run_times = {}
-global timestamp_begin timestamp_end
+global timestamp_begin
+global timestamp_end
 timestamp_begin = datetime.now()
 timestamp_end = datetime.now()
 global test_run_state
