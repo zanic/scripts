@@ -127,6 +127,7 @@ def end_test():
 	coord_dict.clear()
 	timestamp_end = datetime.now()
 	log.info("Test ended with time: " + timestamp_end.strftime('%d.%m.%Y %H:%M:%S'))
+	make_report()
 
 def make_report():
 	log.info("Making report")
