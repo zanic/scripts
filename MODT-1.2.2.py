@@ -113,6 +113,8 @@ def edit_report():
 	            f.write((line.rstrip('\n') + ' ' + str(diff[i]) + '\n'))
 	        i = i +1
 
+	return
+
 	
 
 
