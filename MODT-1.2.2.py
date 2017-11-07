@@ -116,7 +116,7 @@ def edit_report():
 		try:
 			diff.append((times[index+1] - times[index]).total_seconds())
 		except IndexError as e:
-			log.err("Error with %r" % e) 
+			log.info("Error with %r" % e) 
 	log.info ("Writing new report file")
 	with open('report', 'w') as report_f:
 		i = 0
