@@ -109,14 +109,12 @@ def edit_report():
 	with open('report', 'w') as f:
 	    i = 0
 	    for line in formated_line:
+	    	print (line)
 	        if i > 0:
 	            f.write((line.rstrip('\n') + ' ' + str(diff[i]) + '\n'))
 	        i = i +1
 	coord_dict.clear()
 	exit()
-
-	
-
 
 if __name__ == "__main__":
 
