@@ -65,7 +65,6 @@ def end_test():
 	global test_run_state
 	global timestamp_end
 	test_run_state = False
-	coord_dict.clear()
 	timestamp_end = datetime.now()
 	log.info("Test ended with time: " + timestamp_end.strftime('%d.%m.%Y %H:%M:%S'))
 	make_report()
@@ -113,7 +112,7 @@ def edit_report():
 	        if i > 0:
 	            f.write((line.rstrip('\n') + ' ' + str(diff[i]) + '\n'))
 	        i = i +1
-
+	coord_dict.clear()
 	exit()
 
 	
