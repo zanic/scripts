@@ -45,7 +45,7 @@ def process_mqtt_gps_data(msg):
 	if test_run_state:
 		if float(msg[0]) > 0.15 and float(msg[2]) > 0.15:
 			coord_dict[datetime.now()] = str(msg[0]) + ":" + str(msg[2])
-			if len(coord_dict) > 100:
+			if len(coord_dict) > 10:
 				end_test()
 
 def start_test():
@@ -79,13 +79,14 @@ def make_report():
 	edit_report()
 
 def edit_report():
-	print ("Editing report")
+	log.info ("Editing report")
 	times = []
 	diff = []
 	lat = []
 	lon = []
 	formated_line = []
 	with open(report_file, 'r') as f:
+		log.info("Report_file read")
 		lines = f.readlines()
 		for index, line in enumerate(lines):
 			time  = (line.split(' ')[1]).rstrip(':')
@@ -100,19 +101,19 @@ def edit_report():
 			time = datetime.strptime(time, '%Y-%m-%d  %H:%M:%S.%f')
 			times.append(time)
 			formated_line.append(str(time) + lat + ',' + lon)
-
+	log.info("Enumerating")
 	for index, time in enumerate(times):
 		try:
 			diff.append((times[index+1] - times[index]).total_seconds())
 		except IndexError as e:
-			print("Error with %r" % e) 
-	print ("Writing new report file")
-	with open('report', 'w') as f:
+			log.err("Error with %r" % e) 
+	log.info ("Writing new report file")
+	with open('report', 'w') as report_f:
 		i = 0
 		for line in formated_line:
 			print (line)
 			if i > 0:
-				f.write((line.rstrip('\n') + ' ' + str(diff[i]) + '\n'))
+				report_f.write((line.rstrip('\n') + ' ' + str(diff[i]) + '\n'))
 			i = i +1
 	coord_dict.clear()
 	exit()
