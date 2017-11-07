@@ -105,7 +105,7 @@ def edit_report():
 			lon = (((lines[-1].split(','))[0])[0:5])
 			#lon.append(((lines[0].split(':'))[0])[0:5])
 			time = splitted[0] +  ' ' + splitted[1].rstrip(':')
-			self.log(time)
+			log.info(time)
 			time = datetime.strptime(time, '%Y-%m-%d  %H:%M:%S.%f')
 			times.append(time)
 			formated_line.append(str(time) + lat + ',' + lon)
