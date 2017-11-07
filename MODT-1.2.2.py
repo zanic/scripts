@@ -92,7 +92,7 @@ def edit_report():
 		log.info(str(len(lines)))
 		for index, line in enumerate(lines):
 			log.info("We are here in enumerating")
-			log.info(str(index) str(line))
+			log.info(str(index) + " " +  str(line))
 			time  = (line.split(' ')[1]).rstrip(':')
 			splitted = line.split(' ')
 			time_y = splitted[0]
