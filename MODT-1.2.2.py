@@ -22,17 +22,17 @@ global test_run_state
 
 
 def on_connect(client, userdata, rc):
-    mqtt_subscribe(client)
+	mqtt_subscribe(client)
 
 def on_message(client, userdata, msg):
-    process_mqtt_message(msg)
+	process_mqtt_message(msg)
 
 def on_publish(client, userdata, mid):
-    return
+	return
 
 def mqtt_subscribe(client):
-    client.subscribe("smartcity/data/0/GPS/+")    
-    return
+	client.subscribe("smartcity/data/0/GPS/+")    
+	return
 
 def process_mqtt_message(msg):
 	match = re.search("smartcity/data/0/GPS", msg.topic)
@@ -85,34 +85,34 @@ def edit_report():
 	lon = []
 	formated_line = []
 	with open(report_file, 'r') as f:
-	    lines = f.readlines()
-	    for index, line in enumerate(lines):
-	        time  = (line.split(' ')[1]).rstrip(':')
-	        splitted = line.split(' ')
-	        time_y = splitted[0]
-	        time_h = splitted[1]
-	        lat = (((lines[-1].split(','))[0])[0:5])
-	        #lat.append(((lines[-1].split(':'))[0])[0:5])
-	        #lon.append(((lines[0].split(':'))[0])[0:5])
-	        lon = (((lines[-1].split(','))[0])[0:5])
-	        time = splitted[0] +  ' ' + splitted[1].rstrip(':')
-	        time = datetime.strptime(time, '%Y-%m-%d  %H:%M:%S.%f')
-	        times.append(time)
-	        formated_line.append(str(time) + lat + ',' + lon)
+		lines = f.readlines()
+		for index, line in enumerate(lines):
+			time  = (line.split(' ')[1]).rstrip(':')
+			splitted = line.split(' ')
+			time_y = splitted[0]
+			time_h = splitted[1]
+			lat = (((lines[-1].split(','))[0])[0:5])
+			#lat.append(((lines[-1].split(':'))[0])[0:5])
+			#lon.append(((lines[0].split(':'))[0])[0:5])
+			lon = (((lines[-1].split(','))[0])[0:5])
+			time = splitted[0] +  ' ' + splitted[1].rstrip(':')
+			time = datetime.strptime(time, '%Y-%m-%d  %H:%M:%S.%f')
+			times.append(time)
+			formated_line.append(str(time) + lat + ',' + lon)
 
 	for index, time in enumerate(times):
-	    try:
-	        diff.append((times[index+1] - times[index]).total_seconds())
-	    except IndexError as e:
-	        print("Error with %r" % e) 
+		try:
+			diff.append((times[index+1] - times[index]).total_seconds())
+		except IndexError as e:
+			print("Error with %r" % e) 
 
 	with open('report', 'w') as f:
-	    i = 0
-	    for line in formated_line:
-	    	print (line)
-	        if i > 0:
-	            f.write((line.rstrip('\n') + ' ' + str(diff[i]) + '\n'))
-	        i = i +1
+		i = 0
+		for line in formated_line:
+			print (line)
+			if i > 0:
+				f.write((line.rstrip('\n') + ' ' + str(diff[i]) + '\n'))
+			i = i +1
 	coord_dict.clear()
 	exit()
 
@@ -127,7 +127,7 @@ if __name__ == "__main__":
 	# MQTT Parameters
 	broker_address = "127.0.0.1"
 	broker_port = 1883 
-       
+	   
 	mqttc = mqtt.Client()
 	mqttc.on_connect = on_connect
 	mqttc.on_message = on_message
