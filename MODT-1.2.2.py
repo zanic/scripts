@@ -75,7 +75,44 @@ def make_report():
 	with open(report_file, 'a') as f:
 		for key, value in coord_dict.items():
 			f.write(str(key) + ": " + str(value) + '\n')
-	return
+	edit_report()
+
+def edit_report():
+	times = []
+	diff = []
+	lat = []
+	lon = []
+	formated_line = []
+	with open('report', 'r') as f:
+	    lines = f.readlines()
+	    for index, line in enumerate(lines):
+	        time  = (line.split(' ')[1]).rstrip(':')
+	        splitted = line.split(' ')
+	        time_y = splitted[0]
+	        time_h = splitted[1]
+	        lat = (((lines[-1].split(','))[0])[0:5])
+	        #lat.append(((lines[-1].split(':'))[0])[0:5])
+	        #lon.append(((lines[0].split(':'))[0])[0:5])
+	        lon = (((lines[-1].split(','))[0])[0:5])
+	        time = splitted[0] +  ' ' + splitted[1].rstrip(':')
+	        time = datetime.strptime(time, '%Y-%m-%d  %H:%M:%S.%f')
+	        times.append(time)
+	        formated_line.append(str(time) + lat + ',' + lon)
+
+	for index, time in enumerate(times):
+	    try:
+	        diff.append((times[index+1] - times[index]).total_seconds())
+	    except IndexError as e:
+	        print("Error with %r" % e) 
+
+	with open('report', 'w') as f:
+	    i = 0
+	    for line in formated_line:
+	        if i > 0:
+	            f.write((line.rstrip('\n') + ' ' + str(diff[i]) + '\n'))
+	        i = i +1
+
+	
 
 
 if __name__ == "__main__":
