@@ -101,6 +101,7 @@ def edit_report():
 			time = datetime.strptime(time, '%Y-%m-%d  %H:%M:%S.%f')
 			times.append(time)
 			formated_line.append(str(time) + lat + ',' + lon)
+		log.info("Done reading")
 	log.info("Enumerating")
 	for index, time in enumerate(times):
 		try:
