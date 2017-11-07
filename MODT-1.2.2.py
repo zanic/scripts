@@ -102,14 +102,15 @@ def edit_report():
 			splitted = line.split(' ')
 			time_y = splitted[0]
 			time_h = splitted[1]
-			#lat = (((lines[-1].split(','))[0])[0:5])
-			lat.append(((lines[-1].split(':'))[0])[0:5])
-			#lon = (((lines[-1].split(','))[0])[0:5])
-			lon.append(((lines[0].split(':'))[0])[0:5])
+			lat = (((lines[-1].split(','))[0])[0:5])
+			#lat.append(((lines[-1].split(':'))[0])[0:5])
+			lon = (((lines[-1].split(','))[0])[0:5])
+			#lon.append(((lines[0].split(':'))[0])[0:5])
 			time = splitted[0] +  ' ' + splitted[1].rstrip(':')
 			time = datetime.strptime(time, '%Y-%m-%d  %H:%M:%S.%f')
 			times.append(time)
 			formated_line.append(str(time) + lat + ',' + lon)
+			log.info(formated_line)
 		log.info("Done reading")
 	log.info("Enumerating")
 	for index, time in enumerate(times):
