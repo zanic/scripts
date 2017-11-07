@@ -89,6 +89,7 @@ def edit_report():
 		log.info("Report_file read")
 		lines = f.readlines()
 		for index, line in enumerate(lines):
+			log.info("We are here in enumerating")
 			time  = (line.split(' ')[1]).rstrip(':')
 			splitted = line.split(' ')
 			time_y = splitted[0]
