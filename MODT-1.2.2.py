@@ -84,7 +84,7 @@ def edit_report():
 	lat = []
 	lon = []
 	formated_line = []
-	with open('report', 'r') as f:
+	with open(report_file, 'r') as f:
 	    lines = f.readlines()
 	    for index, line in enumerate(lines):
 	        time  = (line.split(' ')[1]).rstrip(':')
