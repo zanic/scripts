@@ -41,9 +41,10 @@ def process_mqtt_message(msg):
 		process_mqtt_gps_data(msg)
 
 def process_mqtt_gps_data(msg):
+	global test_run_state
 	if float(msg[0]) > 0.15 and float(msg[2]) > 0.15:
 		coord_dict[datetime.now()] = str(msg[0]) + ":" + str(msg[2])
-		if len(coord_dict) > 100:
+		if len(coord_dict) > 100 and test_run_state:
 			end_test()
 
 def start_test():
