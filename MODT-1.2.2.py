@@ -106,7 +106,7 @@ def edit_report():
 			diff.append((times[index+1] - times[index]).total_seconds())
 		except IndexError as e:
 			print("Error with %r" % e) 
-
+	print ("Writing new report file")
 	with open('report', 'w') as f:
 		i = 0
 		for line in formated_line:
