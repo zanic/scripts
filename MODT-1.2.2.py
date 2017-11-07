@@ -77,7 +77,7 @@ def make_report():
 	global timestamp_end
 	with open(report_file, 'a') as f:
 		for key, value in coord_dict.items():
-			f.write(str(key) + "," + str(value) + '\n')
+			f.write(str(key) + ": " + str(value) + '\n')
 	time.sleep(1)
 
 	edit_report()
