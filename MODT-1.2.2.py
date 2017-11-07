@@ -79,6 +79,7 @@ def make_report():
 	edit_report()
 
 def edit_report():
+	print ("Editing report")
 	times = []
 	diff = []
 	lat = []
