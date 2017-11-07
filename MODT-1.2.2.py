@@ -123,7 +123,10 @@ def edit_report():
 		for line in formated_line:
 			print (line)
 			if i > 0:
-				report_f.write((line.rstrip('\n') + ' ' + str(diff[i]) + '\n'))
+				try:
+					report_f.write((line.rstrip('\n') + ' ' + str(diff[i]) + '\n'))
+				except IndexError:
+					pass
 			i = i +1
 	coord_dict.clear()
 	lock = False
