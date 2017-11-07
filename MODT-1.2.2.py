@@ -76,6 +76,7 @@ def make_report():
 	with open(report_file, 'a') as f:
 		for key, value in coord_dict.items():
 			f.write(str(key) + ": " + str(value) + '\n')
+	time.sleep(1)
 	edit_report()
 
 def edit_report():
@@ -88,9 +89,10 @@ def edit_report():
 	with open(report_file, 'r') as f:
 		log.info("Report_file read")
 		lines = f.readlines()
+		log.info(str(len(lines)))
 		for index, line in enumerate(lines):
 			log.info("We are here in enumerating")
-			log.info(str(index), str(line))
+			log.info(str(index) str(line))
 			time  = (line.split(' ')[1]).rstrip(':')
 			splitted = line.split(' ')
 			time_y = splitted[0]
