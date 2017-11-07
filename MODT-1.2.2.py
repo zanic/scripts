@@ -19,6 +19,7 @@ global timestamp_end
 timestamp_begin = datetime.now()
 timestamp_end = datetime.now()
 global test_run_state
+global lock
 
 
 def on_connect(client, userdata, rc):
@@ -51,12 +52,14 @@ def process_mqtt_gps_data(msg):
 def start_test():
 	global test_run_state
 	global timestamp_begin
+	global lock
 	test_run_state = True
+	lock = True
 	log.info("Starting test")
 	timestamp_begin = datetime.now()
 	dict_run_times[test_run_state] = timestamp_begin
 	log.info("Test started with time: " + timestamp_begin.strftime('%d.%m.%Y %H:%M:%S'))
-	while test_run_state != False:
+	while lock != False:
 		time.sleep(0.1)
 	return 
 
@@ -77,10 +80,12 @@ def make_report():
 		for key, value in coord_dict.items():
 			f.write(str(key) + ": " + str(value) + '\n')
 	time.sleep(1)
+
 	edit_report()
 
 def edit_report():
 	log.info ("Editing report")
+	global lock
 	times = []
 	diff = []
 	lat = []
@@ -121,6 +126,8 @@ def edit_report():
 				report_f.write((line.rstrip('\n') + ' ' + str(diff[i]) + '\n'))
 			i = i +1
 	coord_dict.clear()
+	lock = False
+
 	exit()
 
 if __name__ == "__main__":
