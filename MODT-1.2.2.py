@@ -78,7 +78,7 @@ def make_report():
 	log.info("Making report")
 	with open(report_file, 'a') as f:
 		for key, value in coord_dict.items():
-			f.write(str(key) + ": " + str(value) + '\n')
+			f.write(str(key) + "," + str(value) + '\n')
 	time.sleep(1)
 
 	edit_report()
@@ -96,9 +96,7 @@ def edit_report():
 		lines = f.readlines()
 		log.info(str(len(lines)))
 		for index, line in enumerate(lines):
-			log.info("We are here in enumerating")
-			log.info(str(index) + " " +  str(line))
-			time  = (line.split(' ')[1]).rstrip(':')
+			time  = (line.split(':')[1]).rstrip(':')
 			splitted = line.split(' ')
 			time_y = splitted[0]
 			time_h = splitted[1]
@@ -107,6 +105,7 @@ def edit_report():
 			lon = (((lines[-1].split(','))[0])[0:5])
 			#lon.append(((lines[0].split(':'))[0])[0:5])
 			time = splitted[0] +  ' ' + splitted[1].rstrip(':')
+			self.log(time)
 			time = datetime.strptime(time, '%Y-%m-%d  %H:%M:%S.%f')
 			times.append(time)
 			formated_line.append(str(time) + lat + ',' + lon)
