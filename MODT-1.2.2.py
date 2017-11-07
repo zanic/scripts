@@ -96,7 +96,7 @@ def edit_report():
 		lines = f.readlines()
 		log.info(str(len(lines)))
 		for index, line in enumerate(lines):
-			time  = (line.split(':')[1]).rstrip(':')
+			time  = (line.split(' ')[1]).rstrip(':')
 			splitted = line.split(' ')
 			time_y = splitted[0]
 			time_h = splitted[1]
